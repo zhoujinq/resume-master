@@ -1,0 +1,352 @@
+/* resume-master · 版式系统 v2
+   方向：Editorial（编辑感）—— 思源宋体标题 + 思源黑体正文
+   纪律：层级靠字号阶梯与留白，不靠装饰；强调色一页 ≤3 次。 */
+
+@page { size: A4; margin: 14mm 17mm 12mm; }
+
+:root {
+  --ink: #14161a;
+  --ink-2: #2b3038;
+  --muted: #5a6069;
+  --faint: #9aa0a8;
+  --rule: #1a1d22;
+  --hair: #d8dade;
+  --accent: #9e3b25;
+
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", "宋体", serif;
+  --sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  --fs-body: 9.6pt;
+  --lh: 1.66;
+  --gap-entry: 3.5mm;
+  --gap-sec: 5.8mm;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #eceef1; }
+
+body {
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  color: var(--ink-2);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.doc {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 16mm auto;
+  padding: 14mm 17mm 12mm;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 18px 44px rgba(16,24,40,.10);
+  position: relative;
+}
+
+/* ================= 报头 ================= */
+header { position: relative; }
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 30pt;
+  line-height: 1;
+  letter-spacing: .06em;
+  color: var(--ink);
+  margin: 0 0 3.2mm;
+}
+
+.role {
+  font-family: var(--sans);
+  font-size: 10.4pt;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--accent);
+  margin: 0 0 3.2mm;
+}
+
+.masthead-rule {
+  height: 0;
+  border-top: .9pt solid var(--rule);
+  margin: 0 0 2.2mm;
+}
+
+.contact, .links {
+  font-size: 7.9pt;
+  letter-spacing: .02em;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.contact { margin-bottom: .6mm; }
+
+.contact span { white-space: nowrap; }
+.links span { white-space: nowrap; }
+
+.contact span + span::before,
+.links span + span::before {
+  content: "·";
+  color: #b9bec7;
+  margin: 0 1.9mm;
+}
+.links { color: var(--muted); }
+.links .lab { color: var(--muted); margin-right: .8mm; }
+.links a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: .3pt solid rgba(158, 59, 37, .35);
+  padding-bottom: .2mm;
+}
+
+.photo {
+  position: absolute;
+  right: 0; top: 0;
+  width: 19mm; height: 26.6mm;
+  object-fit: cover;
+  border: .3pt solid var(--hair);
+}
+
+/* 业绩数字条：HR 前 6 秒只会看这一行 */
+.stats {
+  display: flex;
+  margin: 4.2mm 0 0;
+  padding: 2.8mm 0 2.6mm;
+  border-top: .6pt solid var(--rule);
+  border-bottom: .4pt solid var(--hair);
+}
+.stats .item { flex: 1 1 0; min-width: 0; }
+.stats .item + .item { border-left: .4pt solid var(--hair); padding-left: 3.6mm; }
+.stats .n {
+  font-family: var(--serif);
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .01em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stats .l {
+  margin-top: 1.2mm;
+  font-family: var(--sans);
+  font-size: 7.2pt;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+
+/* 导语 */
+.lede {
+  font-family: var(--serif);
+  font-size: 10.1pt;
+  line-height: 1.72;
+  color: #3a4048;
+  margin: 4.4mm 0 0;
+  text-indent: 0;
+  text-align: justify;
+}
+
+/* ================= 章节 ================= */
+section { margin-top: var(--gap-sec); }
+
+h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  margin: 0 0 2.4mm;
+  font-family: var(--serif);
+  font-size: 10.2pt;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #0f1115;
+  break-after: avoid;
+}
+
+h2::after {
+  content: "";
+  flex: 1;
+  height: 0;
+  border-top: .5pt solid var(--rule);
+  transform: translateY(-.9pt);
+  opacity: .55;
+}
+
+h2 .note {
+  order: 3;
+  flex: 0 0 auto;
+  font-family: var(--sans);
+  font-size: 7.4pt;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--faint);
+}
+
+/* ================= 条目 ================= */
+.entry { margin-bottom: var(--gap-entry); }
+.entry.keep { break-inside: avoid; }
+.entry:last-child { margin-bottom: 0; }
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 2.2mm;
+  margin-bottom: .9mm;
+  break-after: avoid;
+}
+
+.head .logo {
+  width: 3.6mm; height: auto; max-height: 6mm;
+  object-fit: contain;
+  align-self: center;
+  flex: 0 0 auto;
+  opacity: .95;
+}
+
+.head .org {
+  font-family: var(--sans);
+  font-size: 10.2pt;
+  font-weight: 600;
+  letter-spacing: .005em;
+  color: var(--ink);
+}
+
+.head .pos {
+  font-family: var(--sans);
+  font-size: 9.2pt;
+  font-weight: 400;
+  color: var(--muted);
+  flex: 1 1 auto;
+}
+
+.head .pos::before {
+  content: "";
+  display: inline-block;
+  width: 3.2mm; height: 0;
+  border-top: .4pt solid #c9ced6;
+  vertical-align: middle;
+  margin-right: 3.2mm;
+}
+
+.head .date {
+  font-family: var(--serif);
+  font-size: 8.1pt;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+  color: #857f74;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+li {
+  position: relative;
+  padding-left: 4.6mm;
+  margin-bottom: 1.05mm;
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  color: var(--ink-2);
+  text-align: justify;
+  break-inside: avoid;
+}
+
+/* 破折号式项目符号（Editorial 惯例），不用色块 */
+li::before {
+  content: "";
+  position: absolute;
+  left: .2mm;
+  top: .78em;
+  width: 2.4mm;
+  height: 0;
+  border-top: .9pt solid var(--accent);
+  opacity: .85;
+}
+
+li:last-child { margin-bottom: 0; }
+li b { font-weight: 600; color: var(--ink); }
+
+.body-text {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 10.1pt;
+  line-height: 1.8;
+  color: #3a4048;
+  text-indent: 2em;
+  text-align: justify;
+}
+
+/* ================= 备选主题 ================= */
+.preset-swiss {
+  --accent: #2f5bea;
+  --rule: #1f2328;
+}
+.preset-swiss h1 { font-family: var(--sans); font-weight: 700; font-size: 27pt; letter-spacing: .10em; }
+.preset-swiss h2 { font-family: var(--sans); font-size: 8.6pt; font-weight: 400; letter-spacing: .16em; }
+.preset-swiss .lede { font-family: var(--sans); font-size: 9.8pt; text-indent: 0; }
+.preset-swiss .head .date { font-family: var(--sans); }
+.preset-swiss li::before { width: 1.6mm; border-top: 0; background: var(--accent); height: 1.6mm; top: .58em; }
+.preset-swiss li { padding-left: 4.2mm; }
+
+.preset-mono {
+  --accent: #0f766e;
+  --rule: #111;
+  --fs-body: 9.3pt;
+}
+.preset-mono h1 { font-family: "SimHei", "黑体", var(--sans); font-size: 24pt; letter-spacing: .04em; }
+.preset-mono h2 { font-family: "SimHei", "黑体", var(--sans); font-size: 8.2pt; letter-spacing: .1em; }
+.preset-mono .lede { font-family: var(--sans); font-size: 9.6pt; text-indent: 0; }
+.preset-mono .head .date { font-family: var(--sans); }
+
+
+/* ================= 版式：azure（黑白蓝，技术向） ================= */
+.preset-azure {
+  --accent: #4d6bfe;
+  --rule: #14161a;
+  --hair: #e2e5ea;
+  --ink: #101216;
+  --ink-2: #22262c;
+  --muted: #5a6069;
+}
+.preset-azure h1 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 28pt;
+  letter-spacing: .04em;
+}
+.preset-azure .role { color: var(--accent); font-weight: 600; letter-spacing: .02em; }
+.preset-azure h2 {
+  font-family: var(--sans);
+  font-size: 9pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+.preset-azure h2::after { border-top: .5pt solid #14161a; opacity: .35; }
+.preset-azure .lede { font-family: var(--sans); font-size: 10pt; text-indent: 0; color: #2a2f38; }
+.preset-azure li { padding-left: 4.2mm; }
+.preset-azure li::before { width: 1.5mm; height: 1.5mm; border-top: 0; background: var(--accent); top: .60em; }
+.preset-azure .head .date { font-family: var(--sans); }
+/* 关键词高亮：正文纯黑，关键词蓝色 */
+.preset-azure li b { color: var(--accent); font-weight: 600; }
+.preset-azure .head .org b { color: inherit; font-weight: 700; }
+.preset-azure h2 { font-size: 11pt; letter-spacing: .12em; }
+
+/* 条目右侧的项目链接：与 .links 同一视觉语言 */
+.head .date a.plink {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: .3pt solid currentColor;
+  padding-bottom: .2mm;
+  font-variant-numeric: normal;
+}
+/* 链接位留空时的占位文字 */
+.head .date.ph { color: #b6bbc3; letter-spacing: .04em; }
+
+/* ================= 打印 ================= */
+@media print {
+  html, body { background: #fff; }
+  .doc {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
