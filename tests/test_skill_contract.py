@@ -75,6 +75,8 @@ class SkillContractTest(unittest.TestCase):
         for path in ROOT.rglob("*"):
             if not path.is_file() or ".git" in path.parts or path.suffix.lower() in {".pdf", ".webp", ".png", ".jpg"}:
                 continue
+            if path.resolve() == Path(__file__).resolve():
+                continue
             text = path.read_text(encoding="utf-8", errors="ignore")
             for term in private_terms:
                 self.assertNotIn(term, text, f"{term} leaked in {path.relative_to(ROOT)}")
