@@ -22,17 +22,18 @@ description: >
 1. 读取输入与识别模式：[`references/intake.md`](references/intake.md)。
 2. 事实、隐私、归属与提问纪律：[`references/guardrails.md`](references/guardrails.md)，每次都守。
 3. 内容改写：[`references/content-rules.md`](references/content-rules.md) 与 [`references/provenance.md`](references/provenance.md)。
-4. 排版：[`references/design-system.md`](references/design-system.md)。
-5. 渲染和交付门禁：[`references/operating-discipline.md`](references/operating-discipline.md)。
+4. 强调决策：[`references/emphasis.md`](references/emphasis.md)，先给标蓝与不标蓝清单，默认少标。
+5. 排版：[`references/design-system.md`](references/design-system.md)。
+6. 渲染和交付门禁：[`references/operating-discipline.md`](references/operating-discipline.md) 与 [`references/delivery.md`](references/delivery.md)。
 
 ## 三、主流程
 
 1. **读取**：保留原文件；提取教育、经历、项目、技能、联系方式和已有数字，标注低置信度字段。
 2. **审计**：区分 A 已核验／B 用户陈述／C 我的推断／D 未知；识别团队成果、个人成果、协助角色，不夸大归属。
 3. **集中确认**：只问会改变事实或方向的问题，合并成一轮，最多 3 个；其余合理默认并写入修改说明。先给可用草案，不用提问代替交付。
-4. **重构**：先给全文文字稿。模式 B 额外给 JD 匹配差距表：JD 要求、已有证据、缺口、拟强化位置；关键词只写确有证据的。
+4. **重构**：先给全文文字稿与标蓝／不标蓝清单。模式 B 额外给 JD 匹配差距表：JD 要求、已有证据、缺口、拟强化位置；关键词只写确有证据的。
 5. **排版**：用同一 `resume.yaml` 生成 HTML 和 PDF；默认 A4、克制层级、少而精的强调，不为塞版面悄悄删字。
-6. **验收**：运行 `scripts/qa.py` 与 `scripts/preview.py`，检查页数、首末行、越界、照片与链接；真实渲染不合格就修复责任源，不在成品上遮盖。
+6. **验收**：运行 `scripts/qa.py` 与 `scripts/preview.py`，检查页数、首末行、越界、照片与链接；可选 DOCX 必须真实渲染后再与 PDF 比对。真实渲染不合格就修复责任源，不在成品上遮盖。
 
 ## 四、命令
 

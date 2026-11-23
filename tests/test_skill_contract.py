@@ -51,7 +51,7 @@ class SkillContractTest(unittest.TestCase):
 
     def test_mechanical_writing_rules_are_removed(self):
         all_text = read("SKILL.md") + read("references/content-rules.md") + read("references/design-system.md")
-        self.assertNotIn("命中即改", all_text)
+        self.assertNotIn("禁忌词（出现即改）", all_text)
         self.assertNotIn("颜色一页最多 3 次", all_text)
         self.assertIn("用户确认的具体表述", all_text)
 
