@@ -4,6 +4,8 @@
 
 | 文件 | 演示什么 |
 |---|---|
+| `friend-resume.md` | **仅简历模式**的虚构原始简历，含空泛自我评价、待核数字与团队／个人归属问题 |
+| `target-jd.md` | 与上一份配套，演示**简历 + JD 模式**的匹配差距表与针对性取舍 |
 | `sample.yaml` | 单文件完整样例，`style.preset: swiss` |
 | `demo-swiss.pdf` / `demo-editorial.pdf` / `demo-mono.pdf` | 同一份内容的三套版式成品，`qa.py` 全绿（mono 的末页占用 35%，会给 ⚠️ 提醒） |
 | `workspace/_master/resume.yaml` | master-first 的基线，只在这里维护事实 |
