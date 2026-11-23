@@ -57,6 +57,8 @@
 # 主路径：YAML → HTML → PDF
 python scripts/render_html.py resume.yaml -o resume.html --pdf resume.pdf
 python scripts/qa.py resume.pdf resume.yaml --pages 2
+# 可选：只豁免用户明确确认的具体表述，豁免会写入 QA 结果
+# python scripts/qa.py resume.pdf resume.yaml --pages 2 --allow-word "赋能"
 python scripts/preview.py resume.pdf
 
 # 无浏览器时的 reportlab 兜底

@@ -278,7 +278,7 @@
 
   <!-- ============ 首屏 ============ -->
   <header class="hero row">
-    <div class="rail"><b>SKILL.md</b><span>路由与纪律</span></div>
+    <div class="rail"><b>SKILL.md</b><span>两种模式与纪律</span></div>
     <div class="col">
       <div class="hero-top">
         <div>
@@ -286,7 +286,7 @@
           <p class="role">中文简历的内容与版式 · 一个会在交付前拦住你的技能</p>
           <div class="hairline"></div>
           <p class="meta">
-            <span>v0.5.0</span>
+            <span>v1.1.0</span>
             <span>三套版式</span>
             <span>三道门</span>
             <span>10 项计算门禁</span>
@@ -301,7 +301,7 @@
           <span>纸张 <b>A4 210 × 297 mm</b></span>
           <span>版心 <b>174 mm</b>（左右各 18 mm）</span>
           <span>字号阶梯 <b>6 级</b> · 最多 2 个加粗层级</span>
-          <span>强调色 <b>一页最多 3 次</b></span>
+          <span>强调色 <b>少而精，清单确认</b></span>
           <span>主题 <b>swiss / editorial / mono</b></span>
         </div>
       </div>
@@ -497,27 +497,27 @@
   <section class="sec row">
     <div class="rail"><b>禁用词</b><span>assets/banned-words.json</span></div>
     <div>
-      <h2>十九个词，命中六次即阻断</h2>
+      <h2>空话词会提醒或阻断，具体表述可豁免</h2>
       <p class="lede">
         它们的问题不是不好听，而是<em>不可证伪</em>——审稿人无法验证，只能当作噪声跳过。写进简历等于占了一行版面却没给信息。
       </p>
       <div class="words">
         <span>热爱</span><span>赋能</span><span>闭环</span><span>抓手</span><span>深耕</span><span>致力于</span><span>具备较强的</span><span>熟练使用 Office</span><span>抗压能力</span><span>学习能力强</span><span>结果导向</span><span>owner 意识</span><span>良好的沟通能力</span><span>有责任心</span><span>从 0 到 1</span><span>底层逻辑</span><span>颗粒度</span><span>复盘思维</span><span>长期主义</span>
       </div>
-      <p class="note-line">清单只收空话，不收技术动词：「对齐口径」「拆解需求」这类合法用法不在其中。</p>
+      <p class="note-line">清单只收空话，不收技术动词：「对齐口径」「拆解需求」这类合法用法不在其中。用户确认的具体表述可用 <code>qa.py --allow-word "词"</code> 显式豁免，豁免记录会写进 QA 结果。</p>
     </div>
   </section>
 
   <!-- ============ 边界 ============ -->
   <section class="sec row">
-    <div class="rail"><b>能力边界</b><span>SKILL.md §九</span></div>
+    <div class="rail"><b>能力边界</b><span>SKILL.md §七</span></div>
     <div>
       <h2>它明确不做什么</h2>
       <dl class="limits">
         <div><dt>ATS 打分</dt><dd>不做关键词匹配与打分，那是另一类工具的活</dd></div>
         <div><dt>视觉炫技</dt><dd>不做彩条、时间轴、图标墙；这里的审美是<strong>克制的版式</strong></dd></div>
         <div><dt>英文润色</dt><dd>只做结构与版式迁移，不做语言润色</dd></div>
-        <div><dt>读取旧简历</dt><dd>不从 PDF 反推内容，扫描件的数字字段幻觉率高：要么给 YAML，要么人工重录一遍</dd></div>
+        <div><dt>读取旧简历</dt><dd>支持 PDF、DOCX、Markdown、TXT 与 YAML；扫描件和复杂版式的低置信度字段必须集中核对，不能猜</dd></div>
       </dl>
       <p class="note-line">边界写进技能，比写进宣传语有用：知道什么时候不该用它，才不会拿到一份排版漂亮、内容错误的简历。</p>
     </div>
@@ -527,7 +527,7 @@
     <div class="row">
       <div class="rail"></div>
       <div class="sig">
-        <b>简历工坊 Pro</b> · v0.5.0 · 2026
+        <b>简历工坊 Pro</b> · v1.1.0 · 2026
         <p class="fine" style="text-align:left;margin:8px 0 0">
           样例人物与公司均为虚构；页面中的 PDF 截图由技能自身渲染，未做美化。
         </p>

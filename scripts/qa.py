@@ -79,24 +79,31 @@ def check_fill(doc):
         add("✅", "末页留白", f"占用 {ratio:.0%}")
 
 
-def check_text(doc):
+def check_text(doc, allowed_words=()):
     text = "\n".join(p.get_text() for p in doc)
     words, patterns, threshold = load_banned()
+    allowed_words = set(allowed_words)
     counter = {}
     for w in words:
+        if w in allowed_words:
+            continue
         n = text.count(w)
         if n:
             counter[w] = n
     for pat in patterns:
         for m in re.findall(pat, text):
-            counter[str(m)] = counter.get(str(m), 0) + 1
+            matched = str(m)
+            if any(word in matched for word in allowed_words):
+                continue
+            counter[matched] = counter.get(matched, 0) + 1
     total = sum(counter.values())
+    suffix = f"；已豁免用户确认词：{'、'.join(sorted(allowed_words))}" if allowed_words else ""
     if total >= threshold:
-        add("❌", "禁忌词", f"命中 {total} 次（阈值 {threshold}）：" + "、".join(f"{k}×{v}" for k, v in counter.items()))
+        add("❌", "禁忌词", f"命中 {total} 次（阈值 {threshold}）：" + "、".join(f"{k}×{v}" for k, v in counter.items()) + suffix)
     elif total:
-        add("⚠️", "禁忌词", f"命中 {total} 次：" + "、".join(f"{k}×{v}" for k, v in counter.items()))
+        add("⚠️", "禁忌词", f"命中 {total} 次：" + "、".join(f"{k}×{v}" for k, v in counter.items()) + suffix)
     else:
-        add("✅", "禁忌词", "未命中")
+        add("✅", "禁忌词", "未命中" + suffix)
 
     todo = text.count("【待补】")
     if todo:
@@ -161,13 +168,14 @@ def main():
     ap.add_argument("yaml_path", nargs="?", default=None)
     ap.add_argument("--pages", type=int, default=None)
     ap.add_argument("--strict", action="store_true", help="⚠️ 也算失败")
+    ap.add_argument("--allow-word", action="append", default=[], help="豁免用户已确认的具体表述；可重复传入")
     args = ap.parse_args()
 
     doc = fitz.open(args.pdf)
     check_overflow(doc)
     check_pages(doc, args.pages)
     check_fill(doc)
-    check_text(doc)
+    check_text(doc, allowed_words=args.allow_word)
     check_yaml(args.yaml_path, doc)
 
     print(f"resume-master QA · {os.path.basename(args.pdf)}")

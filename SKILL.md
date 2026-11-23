@@ -41,6 +41,8 @@ description: >
 # 主路径：YAML → HTML → PDF
 python scripts/render_html.py resume.yaml -o resume.html --pdf resume.pdf
 python scripts/qa.py resume.pdf resume.yaml --pages 2
+# 仅当用户明确确认某个词是具体工作表述时，才显式豁免：
+# python scripts/qa.py resume.pdf resume.yaml --pages 2 --allow-word "赋能"
 python scripts/preview.py resume.pdf
 
 # 无浏览器时的兜底路径
