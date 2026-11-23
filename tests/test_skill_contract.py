@@ -71,7 +71,7 @@ class SkillContractTest(unittest.TestCase):
         self.assertTrue((ROOT / "examples/target-jd.md").is_file())
 
     def test_no_original_users_private_resume_data(self):
-        private_terms = ("周锦全", "星尘智能", "联洲国际", "毫米波国家", "1500 万欧元", "350 万元")
+        private_terms = ("周锦全", "星尘智能", "联洲国际", "毫米波国家", "1500 万欧元", "350 万元、15 家客户")
         for path in ROOT.rglob("*"):
             if not path.is_file() or ".git" in path.parts or path.suffix.lower() in {".pdf", ".webp", ".png", ".jpg"}:
                 continue
