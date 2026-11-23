@@ -1,44 +1,50 @@
 ---
 name: resume-master
 description: >
-  中文简历的内容优化与 A4 排版工作流，有没有目标岗位 JD 都能用。仅提供现有简历时，直接输出一版事实不漂移、表达更清晰的优化简历；同时提供简历与 JD 时，额外做岗位匹配审计并输出更匹配的版本。支持 PDF、DOCX、Markdown、TXT、YAML 输入，默认少打断，交付 PDF 与可编辑源文件。触发：写简历、改简历、简历优化、按 JD 定制、简历排版、简历一页版、简历导出 PDF。不做：自动投递、面试题库、招聘平台对接、ATS 打分。
+  通用中文简历的内容优化与 A4 排版工作流，有无旧简历、目标岗位 JD、个人主页、GitHub 或作品集都能开始。无简历时用一轮集中问卷收集真实经历，少量缺失再集中补问；默认经过结构线框与全文文字稿两次确认，正文定稿后重新终排并做真实渲染验收。支持 PDF、DOCX、Markdown、TXT、YAML 输入，交付 PDF 与可编辑源文件。触发：写简历、改简历、没有简历想新建、简历优化、按 JD 定制、只有 JD、根据 GitHub 或主页写简历、简历排版、导出 PDF。不做：自动投递、面试题库、招聘平台对接、ATS 打分。
 ---
 
 # 简历工坊 Pro
 
-> 先判断用户给的是“仅简历”还是“简历 + JD”，直接执行，不给路由菜单。
+> 不先问“走哪种模式”，先识别已经有什么。所有入口最终汇入：**素材齐备 → 确认 1 结构线框 → 确认 2 全文文字稿 → 终排与验收**。
 
-## 一、默认两种模式
+## 一、所有输入入口
 
-| 模式 | 输入 | 必交付 | 额外交付 |
-|---|---|---|---|
-| **A｜仅简历** | 一份现有简历，没有 JD | 优化版 PDF＋可编辑源文件＋修改说明 | 待确认清单（有才给） |
-| **B｜简历 + JD** | 现有简历＋目标岗位 JD 原文 | 更匹配岗位的 PDF＋可编辑源文件＋修改说明 | JD 匹配差距表＋取舍依据 |
+| 已有材料 | 启动动作 |
+|---|---|
+| **已有简历**：仅简历，或简历 + JD | 直接读取并审计；仅简历没有 JD 也能优化，不强迫补目标岗位 |
+| **无简历，但有零散经历** | 先整理已有事实，再用一轮集中问卷补齐，不逐题访谈 |
+| **只有 JD** | JD 只用于确定素材优先级，仍须通过问卷获得个人经历，不能把要求写成经历 |
+| **个人主页 / GitHub / 作品集等链接** | 读取公开内容作为素材线索，集中核对归属、时间和结果；公开可见不等于用户已确认 |
+| **没有任何材料** | 直接发一轮通用、易回答的集中问卷，不要求先制作旧简历 |
 
-**没有 JD 也能直接优化，不追问目标岗位。** 用户主动给 JD 才进入岗位匹配；不要把 JD 变成启动条件。
+PDF、DOCX、Markdown、TXT、YAML、图片／扫描件按环境能力读取。保留原文件，不覆盖。
 
 ## 二、按需加载
 
-1. 读取输入与识别模式：[`references/intake.md`](references/intake.md)。
-2. 事实、隐私、归属与提问纪律：[`references/guardrails.md`](references/guardrails.md)，每次都守。
-3. 内容改写：[`references/content-rules.md`](references/content-rules.md) 与 [`references/provenance.md`](references/provenance.md)。
-4. 强调决策：[`references/emphasis.md`](references/emphasis.md)，先给标蓝与不标蓝清单，默认少标。
-5. 排版：[`references/design-system.md`](references/design-system.md)。
-6. 渲染和交付门禁：[`references/operating-discipline.md`](references/operating-discipline.md) 与 [`references/delivery.md`](references/delivery.md)。
+1. 输入识别与事实缺口：[`references/intake.md`](references/intake.md)。
+2. 无简历或素材不足：[`references/questionnaire.md`](references/questionnaire.md)，整轮发出，不逐题追问。
+3. 事实、隐私、归属：[`references/guardrails.md`](references/guardrails.md)，每次都守。
+4. 结构线框与确认 1：[`references/wireframe.md`](references/wireframe.md)。
+5. 内容改写与确认 2：[`references/content-rules.md`](references/content-rules.md)、[`references/provenance.md`](references/provenance.md)、[`references/emphasis.md`](references/emphasis.md)。
+6. 脱敏方法案例：[`references/case-studies.md`](references/case-studies.md)，只借判断，不套数字。
+7. 终排与交付：[`references/design-system.md`](references/design-system.md)、[`references/operating-discipline.md`](references/operating-discipline.md)、[`references/delivery.md`](references/delivery.md)。
 
-## 三、主流程
+## 三、主流程：两次确认，最后重新终排
 
-1. **读取**：保留原文件；提取教育、经历、项目、技能、联系方式和已有数字，标注低置信度字段。
-2. **审计**：区分 A 已核验／B 用户陈述／C 我的推断／D 未知；识别团队成果、个人成果、协助角色，不夸大归属。
-3. **集中确认**：只问会改变事实或方向的问题，合并成一轮，最多 3 个；其余合理默认并写入修改说明。先给可用草案，不用提问代替交付。
-4. **重构**：先给全文文字稿与标蓝／不标蓝清单。模式 B 额外给 JD 匹配差距表：JD 要求、已有证据、缺口、拟强化位置；关键词只写确有证据的。
-5. **排版**：用同一 `resume.yaml` 生成 HTML 和 PDF；默认 A4、克制层级、少而精的强调，不为塞版面悄悄删字。
-6. **验收**：运行 `scripts/qa.py` 与 `scripts/preview.py`，检查页数、首末行、越界、照片与链接；可选 DOCX 必须真实渲染后再与 PDF 比对。真实渲染不合格就修复责任源，不在成品上遮盖。
+1. **读取与审计**：提取教育、工作、项目、技能、联系方式、链接、日期和数字；区分 A 已核验／B 用户陈述／C Agent 推断／D 未知，识别团队成果、个人贡献与协助角色。
+2. **集中补齐**：无简历或素材不足时，一次发完通用问卷；已有简历时，只把影响成稿的缺失合并成一轮。少量缺失继续**集中补问**，不重复问已答内容。**不生成带 `【待补】` 的初稿**；非关键项用户不愿补，就省略并记录。
+3. **确认 1｜结构线框**：先给目标页数、章节顺序、页面配比、阅读顺序、题头与日期布局、主题／密度和拟突出重点。此阶段确认“先看什么、怎么排才好看”，不提前渲染三套完整简历。用户确认后再写全文。
+4. **确认 2｜全文文字稿**：一次性给出完整正文，不逐段挤牙膏；同时给标蓝／不标蓝清单。若有 JD，附“要求—已有证据—真实缺口—处理”差距表。用户确认后才进入终排。
+5. **终排**：以确认的同一内容源生成 HTML／PDF。正文定稿后必须重新评估内容膨胀、页数、分页位置、孤行、密度和末页留白，不机械沿用线框。非语义排版可直接修；需要删改语义则回到确认 2。
+6. **验收与交付**：运行 `scripts/qa.py` 与 `scripts/preview.py`，检查真实渲染的层级、留白、对齐、边缘、链接和页数。默认交付 PDF＋可编辑源文件＋修改说明；未做的验收如实写“未做”。
+
+用户明确说“跳过确认，直接交付”时可合并两次确认，但仍须保留线框、全文和重点清单，且不能跳过事实与终排验收。
 
 ## 四、命令
 
 ```bash
-# 主路径：YAML → HTML → PDF
+# 主路径：确认后的 YAML → HTML → PDF
 python scripts/render_html.py resume.yaml -o resume.html --pdf resume.pdf
 python scripts/qa.py resume.pdf resume.yaml --pages 2
 # 仅当用户明确确认某个词是具体工作表述时，才显式豁免：
@@ -57,7 +63,7 @@ python scripts/fork.py _master/resume.yaml versions/target.yaml --target "目标
 ```yaml
 meta:
   name: 姓名
-  role: 求职意向             # 无 JD 时可沿用原简历或写通用方向
+  role: 求职意向
   contact: ["电话", "邮箱", "城市"]
   links: [{label: 作品集, url: "https://example.com", short: "example.com"}]
 style:
@@ -78,12 +84,13 @@ sections:
 ## 六、版本与事实基线
 
 - 原简历只读，不覆盖；优化版写入新目录或新文件名。
-- 一个岗位一份派生 YAML；事实变化先回 `_master/resume.yaml` 修改，再重新派生，避免不同岗位版本互相继承漂移。
-- 修改说明写清：改了什么、依据是什么、哪些数字或术语仍待用户确认。
+- 一个岗位一份派生 YAML；事实变化先回 `_master/resume.yaml` 修改，再重新派生。
+- 修改说明写清：改了什么、依据是什么、哪些内容被省略、哪些验收未做。
+- 公开案例、测试和文档只使用虚构或充分脱敏素材，不把用户姓名、联系方式、公司、客户与内部指标写回仓库。
 
 ## 七、边界
 
-- 支持从 PDF／DOCX／Markdown／TXT 读取旧简历；扫描件或复杂版式可能误读，低置信度字段必须确认，不能猜。
+- 扫描件、复杂版式与公开链接都可能误读或过期；低置信度字段必须集中核对。
 - 不做 ATS 关键词打分、自动投递、面试题库和招聘平台对接。
 - 不做视觉炫技；三套主题只改版式，不改事实。
 - 不承诺面试、录用、薪资或 offer 概率。
