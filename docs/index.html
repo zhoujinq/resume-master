@@ -3,553 +3,103 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>简历工坊 Pro · 中文简历的内容与版式</title>
-<meta name="description" content="简历工坊 Pro：全入口、事实治理、两次确认、可编辑 DOCX 与 Microsoft Word 同源 PDF，以及核心／严格／建议分层验收。">
-<meta property="og:title" content="简历工坊 Pro">
-<meta property="og:description" content="中文简历工作流：先统一事实，再确认结构与全文；支持 DOCX 同源 PDF 和真实渲染验收。">
+<title>简历工坊 Pro v3.0.0 · 一份事实，一条生产链</title>
+<meta name="description" content="基于证据台账、定向正文、唯一 DOCX 排版源与 Microsoft Word 同源 PDF 的中文简历 Skill。固定思源宋体、思源黑体与 #2F5BEA，提供真实产物验收。">
+<meta property="og:title" content="简历工坊 Pro v3.0.0">
+<meta property="og:description" content="不再选择模板。用一份事实基线、一条 Word 生产链和一套真实 QA，把简历做得可信、可编辑、可复核。">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://zhoujinq.github.io/resume-master/assets/resume-swiss.webp">
 <style>
-  :root{
-    --paper:#F4F3EE;
-    --surface:#FCFBF7;
-    --ink:#202721;
-    --muted:#697068;
-    --muted-strong:#565D56;
-    --line:#D7D9D1;
-    --accent:#235446;
-    --danger:#A14D35;
-    --accent-soft:#E4ECE7;
-    --mono:"Maple Mono",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
-    --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei","DengXian",sans-serif;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    font-size:16px;
-    line-height:1.75;
-    font-weight:400;
-    -webkit-font-smoothing:antialiased;
-  }
-  .page{max-width:1180px;margin:0 auto;padding:0 40px}
-
-  /* ---------- 网格：左侧版边注记 + 右侧正文列 ---------- */
-  .row{display:grid;grid-template-columns:176px minmax(0,1fr);gap:48px}
-  .rail{
-    font-family:var(--mono);font-size:11.5px;line-height:1.9;
-    color:var(--muted);letter-spacing:.01em;padding-top:9px;
-  }
-  .rail b{display:block;font-weight:400;color:var(--muted-strong)}
-  .rail span{display:block}
-
-  /* ---------- 首屏 ---------- */
-  .hero{padding:72px 0 56px}
-  .hero-top{display:grid;grid-template-columns:minmax(0,1fr) 288px;gap:60px;align-items:start}
-  .specs{
-    padding-top:2px;
-    font-family:var(--mono);font-size:11.5px;line-height:2.1;color:var(--muted);
-  }
-  .specs span{display:block}
-  .specs b{font-weight:400;color:var(--muted-strong)}
-  .plates{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:48px 0 0}
-  .plates figure{margin:0}
-  .plates img{
-    display:block;width:100%;height:auto;
-    border:1px solid var(--line);background:var(--surface);
-  }
-  .plates figcaption{
-    margin-top:11px;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.75;
-  }
-  .plates figcaption b{font-weight:400;color:var(--ink);letter-spacing:.08em}
-  h1{
-    margin:0;font-size:clamp(34px,4.2vw,46px);line-height:1.12;
-    font-weight:700;letter-spacing:.01em;
-  }
-  .role{
-    margin:14px 0 0;font-size:15px;color:var(--accent);letter-spacing:.01em;
-  }
-  .hairline{height:1px;background:var(--line);margin:22px 0 16px}
-  .meta{
-    font-family:var(--mono);font-size:11.5px;color:var(--muted);
-    display:flex;flex-wrap:wrap;line-height:1.9;
-  }
-  .meta span::after{content:"·";margin:0 10px;color:var(--line)}
-  .meta span:last-child::after{content:"";margin:0}
-  .thesis{
-    margin:24px 0 0;max-width:34em;font-size:16px;line-height:1.8;color:var(--muted-strong);
-  }
-  .thesis strong{color:var(--ink);font-weight:700}
-
-  /* ---------- 章节 ---------- */
-  .sec{border-top:1px solid var(--line);padding:52px 0}
-  .sec h2{
-    margin:0 0 4px;font-size:17px;font-weight:700;line-height:1.5;
-    display:flex;align-items:center;gap:18px;
-  }
-  .sec h2::after{content:"";flex:1;height:1px;background:var(--line)}
-  .lede{margin:14px 0 0;max-width:36em;font-size:15px;line-height:1.8;color:var(--muted-strong)}
-  .prose{margin:16px 0 0;max-width:36em}
-  .prose p{margin:0 0 12px}
-  .prose p:last-child{margin-bottom:0}
-  em{font-style:normal;border-bottom:1px solid var(--line)}
-  .k{font-weight:700}
-
-  /* ---------- 两问并列 ---------- */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:30px}
-  .split h3{
-    margin:0 0 10px;font-size:13px;font-weight:400;letter-spacing:.14em;color:var(--muted);
-  }
-  .split p{margin:0 0 10px;font-size:15px;line-height:1.8}
-  .split p:last-child{margin-bottom:0}
-  .steps{font-family:var(--mono);font-size:12.5px;line-height:2;color:var(--ink);margin:0}
-  .steps i{font-style:normal;color:var(--muted);padding:0 4px}
-
-  /* ---------- 改前 / 改后 ---------- */
-  .pair{margin-top:34px;border-top:1px solid var(--line)}
-  .pair-row{
-    display:grid;grid-template-columns:64px minmax(0,1fr);gap:24px;
-    padding:16px 0;border-bottom:1px solid var(--line);
-  }
-  .pair-row p{margin:0;font-size:14.5px;line-height:1.75}
-  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding-top:3px}
-  .tag.bad{color:var(--danger)}
-  .tag.good{color:var(--accent)}
-  .pair-row.bad p{color:var(--muted)}
-  .note-line{
-    margin:22px 0 0;font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.8;
-  }
-
-  /* ---------- 三套版式 ---------- */
-  .presets{display:grid;margin-top:28px;border-top:1px solid var(--line)}
-  .preset{
-    display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:40px;align-items:start;
-    padding:24px 0;border-bottom:1px solid var(--line);
-  }
-  .preset img{
-    display:block;width:100%;height:auto;border:1px solid var(--line);background:var(--surface);
-  }
-  .preset dl{margin:0;font-family:var(--mono);font-size:11.5px;line-height:2.05;color:var(--muted)}
-  .preset dt{
-    font-family:var(--sans);font-size:16px;color:var(--ink);font-weight:700;letter-spacing:.06em;
-    margin-bottom:8px;
-  }
-  .preset dd{margin:0}
-  .preset dd b{font-weight:400;color:var(--muted-strong)}
-
-  /* ---------- 表格 ---------- */
-  table{width:100%;border-collapse:collapse;margin-top:26px;text-align:left}
-  caption{
-    caption-side:top;text-align:left;font-family:var(--mono);font-size:11px;
-    color:var(--muted);padding-bottom:10px;
-  }
-  th{
-    font-size:11.5px;font-weight:400;color:var(--muted);letter-spacing:.1em;
-    padding:0 12px 8px 0;border-bottom:1px solid var(--line);white-space:nowrap;
-  }
-  td{
-    font-size:14.5px;line-height:1.7;padding:11px 12px 11px 0;
-    border-bottom:1px solid var(--line);vertical-align:baseline;
-  }
-  td:last-child,th:last-child{padding-right:0}
-  th:first-child,td:first-child{width:56px}
-  th:nth-child(2),td:nth-child(2){width:196px}
-  td.mono{font-family:var(--mono);font-size:12px;color:var(--muted-strong);white-space:nowrap}
-  td.gate{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
-  .ok{color:var(--accent)}
-  .strong-line{
-    margin:30px 0 0;font-size:19px;line-height:1.65;font-weight:700;letter-spacing:.01em;
-  }
-  .strong-line span{display:block;margin-top:6px;font-size:14.5px;font-weight:400;color:var(--muted-strong);letter-spacing:0}
-
-  /* ---------- 字号阶梯（真实 pt） ---------- */
-  .specimen{
-    margin-top:26px;padding:26px 28px;background:var(--surface);
-    border:1px solid var(--line);width:174mm;max-width:100%;
-  }
-  .specimen .line{
-    display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:24px;align-items:baseline;
-    padding:9px 0;
-  }
-  .specimen .line + .line{border-top:1px solid #ECEDE6}
-  .specimen .s-name{font-size:25pt;font-weight:700;line-height:1.15;letter-spacing:.01em}
-  .specimen .s-role{font-size:10pt;color:#2F5BEA;letter-spacing:.01em}
-  .specimen .s-sec{font-size:8.3pt;letter-spacing:.14em}
-  .specimen .s-org{font-size:9.8pt;font-weight:700}
-  .specimen .s-body{font-size:8.7pt;line-height:1.6;color:var(--muted-strong)}
-  .specimen .s-meta{font-size:7.2pt;color:var(--muted)}
-  .specimen .tag-pt{
-    font-family:var(--mono);font-size:10.5px;color:var(--muted);text-align:right;white-space:nowrap;
-  }
-  .measure2{position:relative;height:16px;margin-top:10px;width:174mm;max-width:100%;border-top:1px solid var(--line)}
-  .measure2::before,.measure2::after{content:"";position:absolute;top:0;width:1px;height:7px;background:var(--line)}
-  .measure2::before{left:0}.measure2::after{right:0}
-  .measure2 span{
-    position:absolute;left:50%;top:-9px;transform:translateX(-50%);background:var(--paper);
-    padding:0 8px;font-family:var(--mono);font-size:11px;color:var(--muted);
-  }
-
-  /* ---------- 禁忌词 ---------- */
-  .words{display:flex;flex-wrap:wrap;margin-top:24px;max-width:40em;row-gap:2px}
-  .words span{
-    position:relative;font-size:14.5px;color:var(--muted-strong);
-    padding-right:15px;margin-right:15px;
-  }
-  .words span::after{
-    content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);
-    width:1px;height:11px;background:var(--line);
-  }
-  .words span:last-child{padding-right:0;margin-right:0}
-  .words span:last-child::after{content:none}
-
-  /* ---------- 边界 ---------- */
-  .limits{margin-top:24px;border-top:1px solid var(--line)}
-  .limits div{
-    display:grid;grid-template-columns:190px minmax(0,1fr);gap:26px;
-    padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.7;
-  }
-  .limits dt{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px}
-  .limits dd{margin:0;color:var(--muted-strong)}
-  .limits dd b,.limits dd strong{color:var(--ink);font-weight:700}
-
-  /* ---------- 收尾 ---------- */
-  footer{border-top:1px solid var(--line);padding:26px 0 64px}
-  footer .row{align-items:baseline}
-  .sig{font-size:14px;letter-spacing:.02em}
-  .sig b{font-weight:700}
-  .fine{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;line-height:1.8}
-
-  /* ---------- 入场：只做一次 ---------- */
-  @keyframes plate-in{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  .plates figure{animation:plate-in .55s cubic-bezier(.2,.7,.2,1) both}
-  .plates figure:nth-child(1){animation-delay:.04s}
-  .plates figure:nth-child(2){animation-delay:.11s}
-  .plates figure:nth-child(3){animation-delay:.18s}
-  @media (prefers-reduced-motion:reduce){
-    .plates figure{animation:none;opacity:1;transform:none}
-  }
-
-  /* ---------- 响应式 ---------- */
-  @media (max-width:1020px){
-    .page{padding:0 28px}
-    .row{grid-template-columns:132px minmax(0,1fr);gap:32px}
-    .hero-top{grid-template-columns:minmax(0,1fr) 240px;gap:36px}
-  }
-  @media (max-width:860px){
-    .row{grid-template-columns:minmax(0,1fr);gap:10px}
-    .rail{padding-top:0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px}
-    .rail b{margin-right:6px}
-    .rail span::after{content:" ·";color:var(--line)}
-    .rail span:last-child::after{content:""}
-    .hero{padding:44px 0 36px}
-    .hero-top{grid-template-columns:minmax(0,1fr);gap:24px}
-    .specs{padding-top:0;border-top:0}
-    .plates{gap:18px;margin-top:34px}
-    .preset{grid-template-columns:minmax(0,1fr);gap:14px;padding:20px 0}
-    .preset dl{margin-top:2px}
-    .plates{grid-template-columns:repeat(3,1fr);gap:12px}
-    .plates figcaption{font-size:10px}
-    .split{grid-template-columns:1fr;gap:26px}
-    .specimen{padding:20px}
-    .limits div{grid-template-columns:minmax(0,1fr);gap:4px}
-    .pair-row{grid-template-columns:52px minmax(0,1fr);gap:16px}
-  }
-  @media (max-width:560px){
-    .page{padding:0 18px}
-    .sec{padding:38px 0}
-    .strong-line{font-size:17px}
-    table{font-size:13px}
-    td{font-size:13.5px;padding:10px 8px 10px 0}
-    th{white-space:normal}
-    td.mono,td.gate{white-space:normal}
-    .fine{text-align:left}
-    .specimen{padding:18px 16px}
-    .specimen .line{grid-template-columns:minmax(0,1fr);gap:3px}
-    .specimen .tag-pt{text-align:left}
-    .measure2{display:none}
-  }
+:root{--paper:#f4f1e9;--surface:#fbfaf6;--ink:#191b1f;--body:#353b44;--muted:#6c706f;--line:#d8d5cc;--accent:#2f5bea;--soft:#e8edfc;--warn:#9a642c;--serif:"Noto Serif SC","Source Han Serif SC","思源宋体",serif;--sans:"Noto Sans SC","Source Han Sans SC","思源黑体","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{color:var(--accent)}.wrap{width:min(1180px,calc(100% - 64px));margin:auto}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}.top{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}.brand{font-family:var(--serif);font-weight:700;letter-spacing:.04em}.nav{display:flex;gap:26px;font-size:13px;color:var(--muted)}.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:76px;align-items:center;padding:72px 0 64px}.hero h1{font-family:var(--serif);font-size:clamp(42px,5vw,68px);line-height:1.15;letter-spacing:-.03em;margin:20px 0 24px}.hero h1 span{color:var(--accent)}.lede{font-size:18px;line-height:1.9;color:var(--body);max-width:580px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}.button{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border:1px solid var(--ink);font-size:14px;font-weight:600}.button.primary{background:var(--ink);color:white}.button.primary:hover{background:var(--accent);border-color:var(--accent);color:white}.button.secondary{background:transparent}.contract{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.contract b{color:var(--ink)}.sample{margin:0;position:relative}.sample:before{content:"";position:absolute;inset:18px -18px -18px 18px;background:#e6e1d6;border:1px solid var(--line)}.sample img{position:relative;display:block;width:100%;height:auto;background:white;border:1px solid #cfccc4;box-shadow:0 16px 44px rgba(30,32,36,.08)}.sample figcaption{position:relative;margin-top:26px;text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.metric{padding:26px 24px}.metric+.metric{border-left:1px solid var(--line)}.metric b{display:block;font-family:var(--serif);font-size:32px;line-height:1.2;font-variant-numeric:tabular-nums}.metric span{font-size:12px;color:var(--muted)}section{padding:72px 0;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:260px 1fr;gap:50px;margin-bottom:36px}.section-head h2{font-family:var(--serif);font-size:30px;line-height:1.35;margin:8px 0}.section-head p{margin:8px 0;color:var(--body);max-width:680px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.card{background:var(--surface);padding:26px}.card .num{font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums}.card h3{font-size:17px;margin:12px 0 8px}.card p{font-size:14px;color:var(--muted);margin:0}.pipeline{display:grid;grid-template-columns:repeat(5,1fr);counter-reset:step}.step{position:relative;padding:22px 24px 22px 0;counter-increment:step}.step:before{content:"0" counter(step);display:block;color:var(--accent);font-size:12px;margin-bottom:14px;font-variant-numeric:tabular-nums}.step:after{content:"";position:absolute;left:0;right:24px;top:0;height:2px;background:var(--line)}.step:last-child:after{background:var(--accent)}.step h3{font-size:15px;margin:0 0 8px}.step p{font-size:13px;color:var(--muted);margin:0}.ledger{width:100%;border-collapse:collapse;background:var(--surface);font-size:14px}.ledger th,.ledger td{text-align:left;padding:15px 16px;border-bottom:1px solid var(--line);vertical-align:top}.ledger th{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.05em}.ledger td:first-child{color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}.status{display:inline-block;padding:2px 8px;font-size:11px;background:var(--soft);color:var(--accent)}.visual{display:grid;grid-template-columns:1fr 1fr;gap:48px}.typebox,.specbox{border-top:2px solid var(--ink);padding-top:22px}.typebox .name{font-family:var(--serif);font-size:34px;font-weight:700}.typebox .body{font-size:16px;color:var(--body);margin:14px 0 24px}.typebox .role{color:var(--accent);font-weight:700}.swatch{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}.swatch i{display:block;width:32px;height:32px;background:var(--accent)}.specbox dl{display:grid;grid-template-columns:140px 1fr;margin:0;font-size:14px}.specbox dt,.specbox dd{padding:10px 0;border-bottom:1px solid var(--line)}.specbox dt{color:var(--muted)}.specbox dd{margin:0;font-variant-numeric:tabular-nums}.gates{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.gate{border-top:2px solid var(--accent);padding-top:16px}.gate b{font-size:22px;font-family:var(--serif)}.gate h3{font-size:14px;margin:8px 0}.gate p{font-size:12px;color:var(--muted);margin:0}.qa-summary{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:24px}.qa-summary strong{font-family:var(--serif);font-size:28px}.qa-summary p{margin:0;color:var(--muted);font-size:13px}.pill{display:inline-block;background:var(--soft);color:var(--accent);padding:6px 12px;font-size:12px;font-weight:700}.qa-list{border-top:1px solid var(--line)}.qa-row{display:grid;grid-template-columns:120px 1fr 1.2fr;gap:24px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}.qa-row .pass{color:var(--accent);font-weight:700}.qa-row .warning{color:var(--warn);font-weight:700}.qa-row span:last-child{color:var(--muted)}.opposition{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.objection{background:var(--surface);padding:24px}.objection h3{font-size:15px;margin:0 0 8px}.objection p{font-size:13px;color:var(--muted);margin:0}.downloads{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.downloads a{border-bottom:1px solid var(--accent);color:var(--accent);font-size:14px}footer{padding:34px 0 50px;color:var(--muted);font-size:12px}.footer-row{display:flex;justify-content:space-between;gap:24px}.footer-row b{color:var(--ink);font-variant-numeric:tabular-nums}
+@media(max-width:900px){.wrap{width:min(100% - 36px,720px)}.hero{grid-template-columns:1fr;gap:48px;padding-top:48px}.sample{max-width:560px}.section-head{grid-template-columns:1fr;gap:8px}.cards{grid-template-columns:repeat(2,1fr)}.pipeline{grid-template-columns:repeat(2,1fr)}.gates{grid-template-columns:repeat(2,1fr)}.visual{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(3){border-left:0;border-top:1px solid var(--line)}.metric:nth-child(4){border-top:1px solid var(--line)}.nav{display:none}}
+@media(max-width:560px){.hero h1{font-size:40px}.lede{font-size:16px}.cards,.pipeline,.gates,.opposition{grid-template-columns:1fr}.qa-row{grid-template-columns:88px 1fr}.qa-row span:last-child{grid-column:2}.metrics{grid-template-columns:1fr 1fr}.metric{padding:20px 14px}.ledger{font-size:12px}.ledger th,.ledger td{padding:10px 8px}.footer-row{display:block}.sample:before{inset:10px -10px -10px 10px}}
 </style>
 </head>
 <body>
-<main class="page">
-
-  <!-- ============ 首屏 ============ -->
-  <header class="hero row">
-    <div class="rail"><b>SKILL.md</b><span>全入口与两次确认</span></div>
-    <div class="col">
-      <div class="hero-top">
-        <div>
-          <h1>简历工坊 Pro</h1>
-          <p class="role">中文简历的内容与版式 · 一个会在交付前拦住你的技能</p>
-          <div class="hairline"></div>
-          <p class="meta">
-            <span>v2.0.0</span>
-            <span>三套 HTML 版式</span>
-            <span>两次确认＋终排</span>
-            <span>核心／严格／建议</span>
-            <span>YAML → DOCX → Word PDF</span>
-          </p>
-          <p class="thesis">
-            有无旧简历、JD 或作品链接都能开始。这里同时处理<strong>说什么</strong>和<strong>怎么排</strong>：先确认结构线框与全文，再选择唯一排版路线；可编辑 DOCX 由 Microsoft Word 导出<strong>同源 PDF</strong>，最后过脚本与真实视觉复核。
-          </p>
-        </div>
-        <div class="specs">
-          <span>纸张 <b>A4 210 × 297 mm</b></span>
-          <span>版心 <b>174 mm</b>（左右各 18 mm）</span>
-          <span>字号阶梯 <b>6 级</b> · 最多 2 个加粗层级</span>
-          <span>强调色 <b>少而精，清单确认</b></span>
-          <span>主题 <b>swiss / editorial / mono</b></span>
-        </div>
-      </div>
-
-      <div class="plates">
-        <figure>
-          <img src="assets/resume-swiss.webp" width="900" height="1273" alt="swiss 版式的 A4 简历第一页">
-          <figcaption><b>swiss</b><br>等线 · #2F5BEA<br>克制、可信</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/resume-editorial.webp" width="900" height="1273" alt="editorial 版式的 A4 简历第一页">
-          <figcaption><b>editorial</b><br>宋体 · #B4472B<br>有书卷气</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/resume-mono.webp" width="900" height="1273" alt="mono 版式的 A4 简历第一页">
-          <figcaption><b>mono</b><br>等宽 · #0F766E<br>技术文档感</figcaption>
-        </figure>
-      </div>
-      <p class="note-line">三份都是真实渲染，内容完全相同；差别只在版式预设。纸张 A4 210 × 297 mm，版心 174 mm。</p>
-    </div>
-  </header>
-
-  <!-- ============ 两个问题 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>内容与版式</b><span>content-rules.md</span><span>design-system.md</span></div>
+<header class="wrap top">
+  <a class="brand" href="#top">简历工坊 Pro</a>
+  <nav class="nav" aria-label="页面导航"><a href="#method">方法</a><a href="#standard">固定标准</a><a href="#qa">真实验收</a><a href="https://github.com/zhoujinq/resume-master">GitHub ↗</a></nav>
+  <span class="eyebrow">v3.0.0</span>
+</header>
+<main id="top" class="wrap">
+  <div class="hero">
     <div>
-      <h2>两个问题，两份规范</h2>
-      <div class="split">
-        <div>
-          <h3>说什么</h3>
-          <p class="steps">业务问题 <i>→</i> 我的判断 <i>→</i> 我的动作 <i>→</i> 可验证结果</p>
-          <p>不是每段都要写全，优先补足具体对象、个人动作和可验证结果；没有判断或数字时不硬凑。</p>
-          <p>如果出现判断，它应当是一个<em>可以被追问的真实选择</em>；写不出时不硬凑，清楚的事实同样有价值。</p>
-        </div>
-        <div>
-          <h3>怎么说</h3>
-          <p class="steps">留白 <i>→</i> 字重 <i>→</i> 细线 <i>→</i> 颜色</p>
-          <p>层级靠这四样依次递减，颜色排在最后：默认少标，具体重点随全文清单一并确认。</p>
-          <p>判断标准只有一条：<em>把颜色和 logo 全去掉，还好看吗</em>。去掉就散，说明层级是靠装饰撑的。</p>
-        </div>
-      </div>
+      <div class="eyebrow">Evidence first · One production route</div>
+      <h1>一份事实，<br><span>一条生产链。</span></h1>
+      <p class="lede">简历质量不来自模板数量，而来自真实证据、清楚归属、克制表达和可复核的最终文件。v3.0.0 删除多余自由度，只保留经过真实封板流程验证的 Word 生产标准。</p>
+      <div class="actions"><a class="button primary" href="https://github.com/zhoujinq/resume-master">在 GitHub 使用</a><a class="button secondary" href="assets/sample-v3.pdf">查看虚构样例 PDF</a></div>
+      <div class="contract">唯一视觉标准　<b>思源宋体＋思源黑体</b>　·　强调色 <b>#2F5BEA</b><br>唯一产物路线　事实 YAML → DOCX → Microsoft Word PDF</div>
+    </div>
+    <figure class="sample"><img src="assets/sample-v3.png" alt="简历工坊 v3 的公开虚构一页样例，展示思源字体、蓝色强调、照片、链接和项目经历"><figcaption>公开虚构样例 · 1 页 · 可编辑 DOCX 与 Word 同源 PDF</figcaption></figure>
+  </div>
+  <div class="metrics" aria-label="公开样例关键验收结果">
+    <div class="metric"><b>1</b><span>事实源与排版源</span></div><div class="metric"><b>6 / 6</b><span>DOCX 与 PDF 真实链接</span></div><div class="metric"><b>0</b><span>重复导出逐页像素差</span></div><div class="metric"><b>103,630</b><span>PDF bytes，字体安全子集化后</span></div>
+  </div>
 
-      <div class="pair">
-        <div class="pair-row bad">
-          <span class="tag bad">只写动作</span>
-          <p>负责区域渠道开拓，开发若干客户。</p>
-        </div>
-        <div class="pair-row good">
-          <span class="tag good">补足证据</span>
-          <p>将区域客户按需求与采购阶段分层，用看板跟进；3 个月完成 18 家有效接洽、5 家付费转化（虚构示例）。</p>
-        </div>
-      </div>
-      <p class="note-line">左侧这句话任何人都能写；右侧暴露了「怎么想的」，面试官才有得追问。</p>
+  <section id="method">
+    <div class="section-head"><div><div class="eyebrow">01 / Root causes</div><h2>解决根因，<br>不再反复打补丁。</h2></div><p>11 月 20—24 日的 Bug、返工、回滚和重复修改被归并为六类共同根因。v3 不把“又发生了一次”当成新问题，而是让同类问题在测试阶段就无法通过。</p></div>
+    <div class="cards">
+      <article class="card"><span class="num">01</span><h3>目标漂移</h3><p>把“多做几个版本”误当质量，忽略用户真正需要的是可投递、可答辩的最终稿。</p></article>
+      <article class="card"><span class="num">02</span><h3>多个真相源</h3><p>正文、样式和验收各自维护，修改后彼此漂移。现在只保留一份 YAML 和一个 DOCX 排版源。</p></article>
+      <article class="card"><span class="num">03</span><h3>授权边界模糊</h3><p>把未反对当确认、把协助写成主导。现在事实状态和归属都是显式数据。</p></article>
+      <article class="card"><span class="num">04</span><h3>局部补丁替代修正</h3><p>字体、照片和间距连续试错，却不回到生产约束。现在固定参数由封板 XML 与真实 Word 共同校准。</p></article>
+      <article class="card"><span class="num">05</span><h3>代理指标冒充结果</h3><p>生成成功、文字一致或截图存在都不等于成品正确。现在检查真实文件、真实链接和逐页像素。</p></article>
+      <article class="card"><span class="num">06</span><h3>交接丢失状态</h3><p>已确认事实在新对话里被重新怀疑。派生版本保留状态、归属和来源哈希。</p></article>
     </div>
   </section>
 
-  <!-- ============ 三套版式 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>三套版式</b><span>design-system.md</span></div>
-    <div>
-      <h2>同一份内容，三种气质</h2>
-      <p class="lede">
-        换版式不改内容。如果换完之后某条读着别扭，那是内容的问题，不是版式的问题——这条判断省掉了很多来回。
-      </p>
+  <section>
+    <div class="section-head"><div><div class="eyebrow">02 / Production</div><h2>从经历到成品，<br>每一步都有门禁。</h2></div><p>借鉴规格驱动重建、最小上下文、影子运行和独立端到端验收：先蒸馏已经认可的行为，再用真实产物证明新路线成立。历史版本保留在 Git，活跃分支只有一条生产链。</p></div>
+    <div class="pipeline">
+      <article class="step"><h3>事实入库</h3><p>来源、状态、归属、答辩说明</p></article><article class="step"><h3>JD 定向</h3><p>已有证据与真实缺口分开</p></article><article class="step"><h3>内容审计</h3><p>重复、空话、超长与过度强调</p></article><article class="step"><h3>Word 双导出</h3><p>同一 DOCX、同一 Word 实例</p></article><article class="step"><h3>真实 QA</h3><p>全文、链接、视觉与编辑撤销</p></article>
+    </div>
+    <table class="ledger"><thead><tr><th>事实 ID</th><th>归属</th><th>状态</th><th>正文如何使用</th></tr></thead><tbody>
+      <tr><td>F001</td><td>personal</td><td><span class="status">confirmed</span></td><td>保留个人动作与数字口径，bullet 必须引用 F001。</td></tr>
+      <tr><td>F003</td><td>assisted</td><td><span class="status">authorized</span></td><td>只能写协助与本人负责的部分，不能升级成独立主导。</td></tr>
+      <tr><td>F006</td><td>demo</td><td><span class="status">confirmed</span></td><td>必须保留演示例证口径，不冒充真实客户业务结果。</td></tr>
+      <tr><td>JD gap</td><td>无证据</td><td><span class="status">明确缺口</span></td><td>提示真实差距，不编造经历，也不生成虚假匹配分。</td></tr>
+    </tbody></table>
+  </section>
 
-      <div class="presets">
-        <div class="preset">
-          <img src="assets/specimen-swiss.webp" width="820" height="275" alt="swiss 版式题头：等线粗体姓名，蓝色求职意向">
-          <dl>
-            <dt>swiss</dt>
-            <dd>姓名 <b>等线 Bold 25</b></dd>
-            <dd>章节 <b>8.3 / 字距 1.4</b></dd>
-            <dd>项目符号 <b>▪</b></dd>
-            <dd>强调色 <b>#2F5BEA</b></dd>
-          </dl>
-        </div>
-        <div class="preset">
-          <img src="assets/specimen-editorial.webp" width="820" height="275" alt="editorial 版式题头：宋体姓名，砖红求职意向">
-          <dl>
-            <dt>editorial</dt>
-            <dd>姓名 <b>宋体 29 / 字距 3.0</b></dd>
-            <dd>章节 <b>8.5 / 字距 2.0</b></dd>
-            <dd>项目符号 <b>–</b></dd>
-            <dd>强调色 <b>#B4472B</b></dd>
-          </dl>
-        </div>
-        <div class="preset">
-          <img src="assets/specimen-mono.webp" width="820" height="275" alt="mono 版式题头：等宽字体姓名，墨绿求职意向">
-          <dl>
-            <dt>mono</dt>
-            <dd>姓名 <b>等宽 21</b></dd>
-            <dd>章节 <b>7.9 / 字距 1.0</b></dd>
-            <dd>项目符号 <b>+</b></dd>
-            <dd>强调色 <b>#0F766E</b></dd>
-          </dl>
-        </div>
-      </div>
-      <p class="note-line">swiss 克制可信，适合投企业；editorial 有书卷气；mono 密度最高，适合技术岗。上图为同一份虚构样例的真实渲染。</p>
+  <section id="standard">
+    <div class="section-head"><div><div class="eyebrow">03 / Fixed visual contract</div><h2>只有一个版本，<br>没有风格选择题。</h2></div><p>视觉标准服务于阅读，不服务于展示模板。姓名和章节建立书面的可信感，正文保持高密度可读性；蓝色只用于真正影响匹配度的信息。</p></div>
+    <div class="visual">
+      <div class="typebox"><div class="name">思源宋体</div><p class="body">用于姓名、模块标题与日期。姓名 34pt，模块标题 13pt。</p><div class="role">思源黑体 · 求职方向与正文</div><p class="body">用于条目、bullet、联系方式和链接。正文 9.5pt，固定行距 13.8pt。</p><div class="swatch"><i></i><span>唯一强调色　#2F5BEA</span></div></div>
+      <div class="specbox"><dl><dt>页面</dt><dd>A4 · 左右 17mm</dd><dt>首页边距</dt><dd>上 14mm · 下 18mm</dd><dt>后续页边距</dt><dd>上 18mm · 下 18mm</dd><dt>照片</dt><dd>可选 · 右上 · 约 22 × 30.8mm</dd><dt>链接</dt><dd>完整 URL · DOCX／PDF 双端可点击</dd><dt>正文结构</dt><dd>真实段落与编号 · 无正文文本框</dd></dl></div>
     </div>
   </section>
 
-  <!-- ============ 两次确认与终排 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>阶段门禁</b><span>operating-discipline.md</span></div>
-    <div>
-      <h2>两次确认，最后重新终排</h2>
-      <table>
-        <thead>
-          <tr><th>门</th><th>位置</th><th>通过条件</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="gate">G1</td><td class="mono">确认 1｜结构线框</td><td>页数、章节顺序、页面配比、阅读顺序与重点位置已确认</td></tr>
-          <tr><td class="gate">G2</td><td class="mono">确认 2｜全文文字稿</td><td>完整正文、标蓝清单与 JD 差距表已确认</td></tr>
-          <tr><td class="gate">G3</td><td class="mono">终排与交付</td><td>内容膨胀后重新分页；核心闭合，严格与未做单列，真实视觉复核</td></tr>
-        </tbody>
-      </table>
-      <p class="strong-line">
-        结构与正文分别确认。
-        <span>终排不是把正文灌进旧模板：内容膨胀后必须重新检查分页、密度和末页留白；语义删减回到正文确认。</span>
-      </p>
-    </div>
+  <section>
+    <div class="section-head"><div><div class="eyebrow">04 / Regression gates</div><h2>踩过的坑，<br>直接变成阻断条件。</h2></div><p>测试不只统计数量。每一族都对应历史上真实发生过的失败模式，避免“这次修好、下次换种方式复发”。</p></div>
+    <div class="gates"><article class="gate"><b>D</b><h3>单路线</h3><p>主题残留、样式覆盖、网页与代码不一致。</p></article><article class="gate"><b>E</b><h3>事实证据</h3><p>无来源数字、暂定事实、归属升级、派生降级。</p></article><article class="gate"><b>A</b><h3>真实产物</h3><p>文本、链接、字体、照片和 Word 可编辑性。</p></article><article class="gate"><b>Q</b><h3>QA 自证</h3><p>漏报、误报、假比较、未做冒充通过。</p></article><article class="gate"><b>H</b><h3>交接范围</h3><p>来源变化、状态丢失、公开隐私和越界修改。</p></article></div>
   </section>
 
-  <!-- ============ 同源路线与分层门禁 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>Word 同源</b><span>scripts/render_docx.py</span><span>scripts/export_word.ps1</span></div>
-    <div>
-      <h2>可编辑 DOCX，PDF 只认同一排版源</h2>
-      <div class="split">
-        <div>
-          <h3>生成与导出</h3>
-          <p class="steps">YAML <i>→</i> DOCX <i>→</i> Microsoft Word PDF</p>
-          <p>正文保持普通可编辑段落；URL 是真实超链接，照片只给宽度并等比显示。浏览器和系统打印驱动不冒充 Word 同源导出。</p>
-        </div>
-        <div>
-          <h3>实际产物验收</h3>
-          <p class="steps">全文一致 <i>→</i> 链接 <i>→</i> 字体／照片 <i>→</i> 重导出</p>
-          <p>不看“应该如此”的生成参数，直接检查 DOCX、PDF 和逐页渲染图。未安装字体、未做视觉或未做第二次导出，都保留 NOT_RUN。</p>
-        </div>
-      </div>
+  <section id="qa">
+    <div class="section-head"><div><div class="eyebrow">05 / Honest acceptance</div><h2>验收报告，<br>允许有不完美。</h2></div><p>公开样例使用完全虚构的人物、公司、数字与链接。核心与严格项按真实 DOCX、Word PDF、编辑撤销和重复导出结果判定；建议项单独提醒，不被藏起来。</p></div>
+    <div class="qa-summary"><div><span class="pill">公开虚构样例</span><br><strong>核心与严格项通过</strong></div><p>2 项建议 WARN：JD 真实缺口、PDF 内照片建议像素<br>建议 WARN 不等于核心失败，也不被改写成全绿。</p></div>
+    <div class="qa-list">
+      <div class="qa-row"><span class="pass">PASS · 核心</span><span>全文与链接</span><span>DOCX／PDF 全文一致；6 个真实链接双端同步。</span></div>
+      <div class="qa-row"><span class="pass">PASS · 核心</span><span>实际字体与照片</span><span>检测为 Source Han Sans／Serif；照片坐标符合固定标准。</span></div>
+      <div class="qa-row"><span class="pass">PASS · 严格</span><span>真实 Word 编辑—撤销</span><span>临时副本正文哈希恢复、页数不变、原文件不变。</span></div>
+      <div class="qa-row"><span class="pass">PASS · 严格</span><span>重复导出</span><span>144 DPI 逐页像素差为 0。</span></div>
+      <div class="qa-row"><span class="warning">WARN · 建议</span><span>照片建议像素</span><span>Word PDF 内有效像素低于建议值，核心坐标与视觉仍通过。</span></div>
+      <div class="qa-row"><span class="warning">WARN · 建议</span><span>JD 真实缺口</span><span>没有证据的语言成绩保持缺口，不补写、不估算。</span></div>
     </div>
+    <div class="downloads"><a href="assets/sample-v3.docx">下载 DOCX</a><a href="assets/sample-v3.pdf">下载 PDF</a><a href="assets/qa-v3.md">查看 QA 报告</a><a href="https://github.com/zhoujinq/resume-master/blob/main/examples/sample.yaml">查看事实 YAML</a></div>
   </section>
 
-  <section class="sec row">
-    <div class="rail"><b>分层门禁</b><span>scripts/qa.py</span></div>
-    <div>
-      <h2>核心、严格、建议，不再只报“全绿”</h2>
-      <p class="lede">
-        退出码 0 表示核心闭合，1 表示有失败，2 表示核心未完成。严格项未做不会被藏进 PASS；建议未达也不会冒充核心失败。
-      </p>
-      <table>
-        <caption>虚构样例的真实 Word 双导出验收摘要</caption>
-        <thead><tr><th>状态</th><th>检查项</th><th>结果</th></tr></thead>
-        <tbody>
-          <tr><td class="ok">PASS · 核心</td><td>源文覆盖</td><td class="mono">66 段源文均出现在 PDF</td></tr>
-          <tr><td class="ok">PASS · 核心</td><td>DOCX／PDF 文本一致性</td><td class="mono">归一化后 1,602 字符逐字一致</td></tr>
-          <tr><td class="ok">PASS · 核心</td><td>可点击链接</td><td class="mono">DOCX 与 PDF 均为 2 / 2</td></tr>
-          <tr><td class="ok">PASS · 核心</td><td>视觉复核</td><td class="mono">逐页 PNG 已查看并登记</td></tr>
-          <tr><td class="ok">PASS · 严格</td><td>重导出像素差</td><td class="mono">同 DPI 下逐页像素差为 0</td></tr>
-          <tr><td class="tag bad">NOT_RUN · 严格</td><td>Word 编辑—撤销</td><td class="mono">未做，保持未完成</td></tr>
-          <tr><td class="tag bad">WARN · 建议</td><td>带照片样例的 PDF 照片像素</td><td class="mono">196 × 275，低于建议值，单独提醒</td></tr>
-        </tbody>
-      </table>
-      <p class="note-line">这组结果的正确结论是“核心通过、严格未完成、照片建议有提醒”，不是“全部通过”。完整 JSON／Markdown 报告同时保存文件哈希与每项证据。</p>
+  <section>
+    <div class="section-head"><div><div class="eyebrow">06 / Strongest opposition</div><h2>如果这些假设错了，<br>边界必须先说清。</h2></div><p>最强反对者不会因为测试通过就停止质疑。以下情况不能被单一固定标准掩盖，也不能靠换一条排版链规避。</p></div>
+    <div class="opposition">
+      <article class="objection"><h3>固定版式不适合所有人？</h3><p>对视觉作品集、设计岗位或企业强制模板确实可能不合适。本 Skill 面向通用中文求职简历，不声称覆盖所有展示场景。</p></article>
+      <article class="objection"><h3>证据可追溯就等于真实？</h3><p>不等于。脚本只能证明引用、数字和归属一致；事实真实性仍需要用户确认与可答辩材料。</p></article>
+      <article class="objection"><h3>没有 Word 还能完成吗？</h3><p>可以生成 DOCX 和文字稿，但 PDF 双导出与 Word 编辑撤销必须保持 NOT_RUN，不能宣称完整封板。</p></article>
+      <article class="objection"><h3>一页或两页就是硬指标？</h3><p>不是。页数由经历与目标决定；不为凑页数删字、缩字号，也不为填满页面增加无效内容。</p></article>
+      <article class="objection"><h3>关键词覆盖能预测面试？</h3><p>不能。这里不做 ATS 打分，不承诺面试、录用、薪资或 Offer 概率。</p></article>
+      <article class="objection"><h3>旧能力是否永远消失？</h3><p>活跃代码和网页只维护 v3.0.0；旧版本仍在 Git 历史中用于审计和回滚，不与新成品混用。</p></article>
     </div>
   </section>
-
-  <!-- ============ 字号阶梯 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>字号阶梯</b><span>design-system.md §二</span></div>
-    <div>
-      <h2>下面这块，是简历的字号阶梯</h2>
-      <p class="lede">
-        比文字更决定「贵不贵」的，是字号阶梯的间距是否成比例。相邻层级字号差要 ≥ 1.2 倍，否则看着含糊。
-      </p>
-
-      <div class="specimen">
-        <div class="line">
-          <span class="s-name">张三</span>
-          <span class="tag-pt">25–29 pt · Bold</span>
-        </div>
-        <div class="line">
-          <span class="s-role">海外销售经理 · 企业服务</span>
-          <span class="tag-pt">10 pt · 唯一强调色</span>
-        </div>
-        <div class="line">
-          <span class="s-sec">工 作 经 历</span>
-          <span class="tag-pt">7.9–8.5 pt · 宽字距</span>
-        </div>
-        <div class="line">
-          <span class="s-org">示例科技（虚构）</span>
-          <span class="tag-pt">9.8 pt · Bold</span>
-        </div>
-        <div class="line">
-          <span class="s-body">近三年签单 2,100 万元（含续约 640 万元），客户以制造业与物流企业为主。</span>
-          <span class="tag-pt">8.7–8.9 pt · 正文</span>
-        </div>
-        <div class="line">
-          <span class="s-meta">2023.04 – 至今 · 示例城市</span>
-          <span class="tag-pt">7.2–7.7 pt · 元信息</span>
-        </div>
-      </div>
-      <div class="measure2"><span>版心 174 mm</span></div>
-      <p class="note-line">上面六行的字号、字距与行高，与 PDF 里完全一致；网页用的是同一套 pt 值。桌面端这块宽度即版心 174 mm。</p>
-    </div>
-  </section>
-
-  <!-- ============ 禁忌词 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>禁用词</b><span>assets/banned-words.json</span></div>
-    <div>
-      <h2>空话词会提醒或阻断，具体表述可豁免</h2>
-      <p class="lede">
-        它们的问题不是不好听，而是<em>不可证伪</em>——审稿人无法验证，只能当作噪声跳过。写进简历等于占了一行版面却没给信息。
-      </p>
-      <div class="words">
-        <span>热爱</span><span>赋能</span><span>闭环</span><span>抓手</span><span>深耕</span><span>致力于</span><span>具备较强的</span><span>熟练使用 Office</span><span>抗压能力</span><span>学习能力强</span><span>结果导向</span><span>owner 意识</span><span>良好的沟通能力</span><span>有责任心</span><span>从 0 到 1</span><span>底层逻辑</span><span>颗粒度</span><span>复盘思维</span><span>长期主义</span>
-      </div>
-      <p class="note-line">清单只收空话，不收技术动词：「对齐口径」「拆解需求」这类合法用法不在其中。用户确认的具体表述可用 <code>qa.py --allow-word "词"</code> 显式豁免，豁免记录会写进 QA 结果。</p>
-    </div>
-  </section>
-
-  <!-- ============ 边界 ============ -->
-  <section class="sec row">
-    <div class="rail"><b>能力边界</b><span>SKILL.md §七</span></div>
-    <div>
-      <h2>它明确不做什么</h2>
-      <dl class="limits">
-        <div><dt>ATS 打分</dt><dd>不做关键词匹配与打分，那是另一类工具的活</dd></div>
-        <div><dt>视觉炫技</dt><dd>不做彩条、时间轴、图标墙；这里的审美是<strong>克制的版式</strong></dd></div>
-        <div><dt>英文润色</dt><dd>只做结构与版式迁移，不做语言润色</dd></div>
-        <div><dt>输入入口</dt><dd>支持无简历、只有 JD、个人主页、GitHub、作品集与已有简历；低置信度字段集中核对，不能猜</dd></div>
-      </dl>
-      <p class="note-line">边界写进技能，比写进宣传语有用：知道什么时候不该用它，才不会拿到一份排版漂亮、内容错误的简历。</p>
-    </div>
-  </section>
-
-  <footer>
-    <div class="row">
-      <div class="rail"></div>
-      <div class="sig">
-        <b>简历工坊 Pro</b> · v2.0.0 · 2026
-        <p class="fine" style="text-align:left;margin:8px 0 0">
-          样例人物与公司均为虚构；页面中的 PDF 截图由技能自身渲染，未做美化。
-        </p>
-      </div>
-    </div>
-  </footer>
-
 </main>
+<footer class="wrap"><div class="footer-row"><span>简历工坊 Pro · <b>v3.0.0</b> · MIT</span><span><a href="https://github.com/zhoujinq/resume-master">代码仓库 ↗</a>　·　公开样例全部为虚构内容</span></div></footer>
 </body>
 </html>

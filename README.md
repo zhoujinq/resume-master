@@ -1,93 +1,130 @@
 # 简历工坊 Pro · resume-master
 
-**当前版本：v2.0.0**｜MIT｜介绍页：https://zhoujinq.github.io/resume-master/
+**v3.0.0**｜MIT｜[项目预览](https://zhoujinq.github.io/resume-master/)
 
-给 AI Agent 使用的通用中文简历 Skill。保留全入口、事实治理、两次确认与三套 HTML 主题，新增 **可编辑 DOCX → Microsoft Word 同源 PDF** 和可审计验收报告。底线不变：**不编造事实，不交付未经真实渲染检查的文件，不把未做写成通过。**
+给 AI Agent 使用的中文简历工作流。v3 把目标从“提供更多模板”改为“减少错误自由度”：一份事实基线、一份定向正文、一个 DOCX 排版源、一次 Microsoft Word 同源导出、一套真实产物验收。
 
-## 给朋友的最快用法
+唯一视觉标准：**思源宋体＋思源黑体，强调色 #2F5BEA**。没有主题切换、字体覆盖、备用渲染器或第二条 PDF 路线。
 
-把整个 `resume-master` 文件夹放进支持 `SKILL.md` 的 Agent 技能目录，或直接把文件夹交给 Agent。
+## 为什么推倒重来
 
-### 无简历／没有旧简历，也可以从零开始
+真实封板过程证明，质量来自内容证据、明确归属、克制排版和真实 Word 验收，而不是模板数量。旧实现的多路线造成多个事实源、排版源和验收口径，正是返工与回滚的共同土壤。
 
-> 请使用 resume-master 帮我做简历。我没有旧简历，请先给我一轮集中问卷，不要逐题追问或编造。先确认结构线框，再确认全文，最后终排和真实验收。
+v3 将 11 月 20—24 日的 14 类问题归并为六个根因：目标漂移、多个真相源、授权边界模糊、局部补丁替代架构修正、代理指标冒充真实结果、交接丢失已确认状态。对应门禁见 [阶段性复盘](docs/postmortem-2026-11-20-to-24.md)。
 
-只有 JD、零散经历、个人主页、GitHub 或作品集也可以直接发。JD 只用于匹配，公开内容不会自动变成你的个人成果。
+## 最快使用
 
-### 已有简历／简历 + JD
+把整个文件夹交给支持 `SKILL.md` 的 Agent，并说：
 
-> 请使用 resume-master 优化我的简历。我要可编辑 DOCX、同源 PDF 和修改说明；不要编造数字，不要为凑页数删字。
+> 请使用 resume-master 优化我的简历。先建立事实证据台账，再按 JD 定向正文；不要编造数字或把团队成果写成我个人成果。最后交付可编辑 DOCX、Microsoft Word 同源 PDF 和完整 QA。
 
-支持 **PDF、DOCX、Markdown、TXT、YAML**，图片／扫描件可按环境能力尝试。仅简历没有 JD 也能优化；有 JD 时附差距表。虚构输入见 `examples/friend-resume.md` 与 `examples/target-jd.md`。
+无旧简历、只有 JD、零散经历、个人主页、GitHub 或作品集也可以开始。材料不足时一轮集中补问；只有 JD 时，JD 只决定素材优先级，不会变成你的经历。
 
-### 只想上传一个文件：Lite
+只想上传一个文件时，使用自包含的 [Lite 文件版](lite/文件版skill.md)。Lite 同样遵循 v3.0.0 的唯一视觉标准，但不承诺脚本和 Word 自动化一定可用。
 
-使用 [`lite/文件版skill.md`](lite/文件版skill.md)。它完全自包含，保留事实与流程护栏，但不承诺 Pro 的固定版式、Word 导出器或脚本 QA。
+## v3.0.0 的五个核心机制
 
-## v2.0.0 核心升级
+1. **证据台账**：每条 bullet 引用事实 ID；事实记录来源、确认状态、归属和可答辩说明。暂定事实不能进入终稿。
+2. **JD 差距映射**：区分已有证据与真实缺口，不生成虚构匹配分，不用 ATS 分数代替招聘判断。
+3. **内容审计**：检查重复 bullet、空泛词、超长句、过度强调和未披露缺口。
+4. **唯一 DOCX 路线**：正文、编号、链接、照片和 Logo 写入可编辑 OOXML；PDF 只由 Microsoft Word 从同一 DOCX 导出。
+5. **真实 QA**：检查全文一致、文本层、实际字体与字号、颜色、链接、照片坐标、越界、逐页视觉、重复导出像素差和真实 Word 编辑—撤销。
 
-- 新增 `scripts/render_docx.py`：YAML → 可编辑 DOCX，正文不使用文本框，照片等比，URL 是真实 OOXML 链接。
-- 新增 `scripts/export_word.ps1`：PDF 只由本机 **Microsoft Word** 从同一 DOCX 导出，不用浏览器或系统打印驱动冒充。
-- QA 增加源文覆盖、DOCX/PDF 归一化全文一致、DOCX/PDF 链接、实际字体、PDF 照片像素与重复导出逐页像素比较。
-- 报告区分 **核心／严格／建议**，使用 `PASS／WARN／FAIL／NOT_RUN／NOT_APPLICABLE`；严格项未做时总体保持 `INCOMPLETE`。
-- 保留 v1.2.0 的全入口、集中问卷、两次确认、终排重检、HTML 三主题、ReportLab 兜底、Lite 和版本派生。
+自动校验只证明“可追溯、可检查”，不声称自动证明事实真实，也不替代用户最终确认。
 
-## 命令
+## 快速验证公开虚构样例
+
+安装 Python 依赖：
 
 ```bash
-# Word 主路线：双导出用于确定性验证
-python scripts/render_docx.py resume.yaml -o resume.docx --pdf resume.pdf --repeat-pdf resume-repeat.pdf
-python scripts/preview.py resume.pdf
-
-# Agent 逐页看过 PNG 后，再登记视觉证据
-python scripts/qa.py resume.pdf resume.yaml --docx resume.docx --repeat-pdf resume-repeat.pdf --pages 2 --visual-evidence resume.pdf.p1.png --visual-evidence resume.pdf.p2.png --report-json qa.json --report-md qa.md
-
-# 可选严格字体白名单
-python scripts/qa.py resume.pdf resume.yaml --docx resume.docx --font-allow SourceHanSans --font-allow Arial --visual-evidence resume.pdf.p1.png
-
-# HTML／浏览器路线
-python scripts/render_html.py resume.yaml -o resume.html --pdf resume.pdf
-# ReportLab 兜底
-python scripts/render.py resume.yaml -o resume.pdf
-# 派生岗位版本
-python scripts/fork.py _master/resume.yaml versions/target.yaml --target "目标岗位"
-# 回归测试
-python -m unittest discover -s tests -v
+python -m pip install -e .
 ```
 
-依赖：Python 3、`pyyaml`、`PyMuPDF`、`python-docx`；照片处理使用 `Pillow`，ReportLab 兜底另需 `reportlab`。Word PDF 导出需要 Windows Microsoft Word；HTML PDF 需要 Chrome／Edge。Word 导出后只对 PDF 内嵌字体做无损子集化，QA 必须复核文字、链接和页面。脚本不安装、卸载或转换字体，不修改注册表或 Word 全局选项。
+运行门禁与唯一生产链：
 
-## Agent 如何执行
-
-入口是 `SKILL.md`，按需加载 `references/`。主流程：
-
-```text
-识别材料 → 集中问卷／补问（仅缺素材时）
-→ 确认 1：结构线框
-→ 确认 2：全文文字稿＋重点清单
-→ 内容定稿后的终排
-→ 选择唯一排版路线 → 真实渲染与 QA → 交付与未决项
+```bash
+python scripts/evidence.py examples/sample.yaml --json evidence.json
+python scripts/content_audit.py examples/sample.yaml --json content-audit.json
+python scripts/render_docx.py examples/sample.yaml -o sample.docx --pdf sample.pdf --repeat-pdf sample-repeat.pdf
+python scripts/preview.py sample.pdf
 ```
 
-## 验收不再只报“全绿”
+PDF 导出需要 Windows Microsoft Word；只生成 DOCX 不需要 Word。字体子集化会先保留原始产物，再比较逐页文本、链接和像素哈希；任何变化都会中止替换。脚本不安装字体、不修改注册表或 Word 全局选项。
 
-| 层级 | 例子 |
+在临时副本验证真实 Word 编辑—撤销：
+
+```bash
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify_word_edit.ps1 -Docx sample.docx -FindText "林示例" -ReplaceWith "测试替换" -EvidencePath edit-undo.json
+```
+
+逐页实际查看 PNG 后运行完整 QA：
+
+```bash
+python scripts/qa.py examples/sample.yaml --pdf sample.pdf --docx sample.docx --repeat-pdf sample-repeat.pdf --word-export-log sample.word-export.json --edit-undo-evidence edit-undo.json --visual-evidence sample.pdf.p1.png --report-json qa.json --report-md qa.md
+```
+
+多页简历为每一页追加一个 `--visual-evidence`。目标页数可写在 YAML 的 `delivery.pages`，也可用 `--pages` 覆盖。目标页数只是验收口径；需要强制从新页开始的章节必须另写 `page_break_before: true`，渲染器会创建独立分节。
+
+公开发布虚构样例报告时，可脱敏本机路径；状态原样保留：
+
+```bash
+python scripts/publish_qa.py qa.json qa-public.md
+```
+
+## 数据契约
+
+```yaml
+meta:
+  name: 林示例
+  role: AI 产品用户运营
+  contact: [深圳, {t: example@example.com, u: "mailto:example@example.com"}]
+delivery: {pages: 1}
+facts:
+  - id: F001
+    statement: 独立设计 12 封新人引导邮件，示例激活率为 30%。
+    status: confirmed
+    ownership: personal
+    source: 虚构样例事实
+    note: 可解释激活口径与邮件分批方式。
+sections:
+  - title: 工作经历
+    items:
+      - org: 示例公司
+        role: 用户运营
+        date: 2023.07–至今
+        bullets:
+          - {text: "独立设计 [[12 封]]新人引导邮件，示例激活率达到 **30%**。", facts: [F001]}
+```
+
+完整字段和 JD 映射见 [`examples/sample.yaml`](examples/sample.yaml)。`[[...]]` 是蓝色加粗，`**...**` 是普通加粗；两者都进入同一正文流。`delivery.pages` 不控制分页；需要另起一页的章节设置 `page_break_before: true`，再用真实 Word 页数核对目标。
+
+## 防重犯测试族
+
+| 测试族 | 阻断的问题 |
 |---|---|
-| 核心 | 页数、越界、源文覆盖、DOCX/PDF 全文一致、真实链接、文本层、逐页视觉复核 |
-| 严格 | 字体白名单、第二次导出逐页像素差为 0、实际 Word 编辑—撤销 |
-| 建议 | PDF 内照片建议像素等 |
+| D · 单路线 | 主题残留、样式覆盖、多排版源、网页与代码不一致 |
+| E · 事实证据 | 数字无来源、暂定事实进终稿、团队成果个人化、派生降级 |
+| A · 真实产物 | DOCX/PDF 文本和链接不一致、字体或照片错误、真实 Word 不可编辑 |
+| Q · QA 自证 | 未做冒充通过、像素比较漏报、比较器误报、严格项被核心通过掩盖 |
+| H · 交接与范围 | 已确认事实被降级、来源哈希变化未提示、公开仓库泄漏隐私 |
 
-`NOT_RUN` 不计入通过；建议未达单独列示。QA 退出码：`0` 核心闭合、`1` 有失败、`2` 核心未完成。严格项未做仍会在报告中保留 `INCOMPLETE`。
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+```
 
-## 版本管理与开发
+开发依据：[需求依赖矩阵](docs/requirements-matrix-v3.0.0.md) · [第一性原理与反方评审](docs/design-rationale-v3.0.0.md) · [验收规则](references/acceptance.md)。
 
-原简历只读，一个岗位一份派生 YAML；事实变化先改 `_master/resume.yaml`。修改说明写清改动、依据、省略内容、验收范围与未决项。
+## 验收口径
 
-本版按 [`docs/requirements-matrix-v2.0.0.md`](docs/requirements-matrix-v2.0.0.md) 做 MVP／TDD 小步迭代；新增脚本必须真实运行，未验证不能称为完成。实际渲染发现的问题与验证结果见 [`docs/release-notes-v2.0.0.md`](docs/release-notes-v2.0.0.md)。
+- **核心**：证据、页数、源文覆盖、全文一致、文本层、链接、字体、字号、颜色、照片、越界和逐页视觉。
+- **严格**：重复导出同 DPI 逐页像素差为 0、真实 Word 编辑—撤销、项目符号间距。
+- **建议**：照片建议像素、末页留白、PDF 体积、真实 JD 缺口提醒。
 
-## 能力边界
+`PASS／WARN／FAIL／NOT_RUN／NOT_APPLICABLE` 必须如实区分。核心通过不代表严格全过；建议 WARN 不等于核心失败。
 
-- 不做 ATS 打分、自动投递、面试题库、招聘平台对接，不承诺面试、录用、薪资或 offer 概率。
-- HTML、ReportLab、DOCX 是不同排版路线，不能互相宣称像素一致或 Word 同源。
-- 复杂版式、扫描件和网页缓存可能误读或过期，低置信度字段集中核对。
-- `examples/` 与案例均为虚构；真实用户的联系方式、公司、客户、内部指标和本机路径不得写入公开仓库。
+## 边界
+
+- 不做 ATS 打分、自动投递、招聘平台对接、面试题库，不承诺面试或录用结果。
+- 没有 Microsoft Word 时，PDF 双导出和 Word 编辑—撤销必须保持 `NOT_RUN`，不能换第二条路线冒充完成。
+- 公开样例和测试全部虚构；真实姓名、联系方式、公司、客户、内部指标、照片和本机路径不得进入公开仓库。
+- Git 历史保留旧版本用于回滚；活跃代码、样例、Skill 与项目页面只维护 v3.0.0 这一条生产标准。

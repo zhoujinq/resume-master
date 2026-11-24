@@ -1,94 +1,86 @@
-# 虚构样例，人物与公司均为占位，用于演示 resume-master 的渲染与门禁
 meta:
-  name: 张三
-  role: 海外销售经理 · 企业服务
+  name: 林示例
+  role: AI 产品用户运营
   contact:
-    - "138 0000 0000"
-    - "zhangsan@example.com"
-    - "示例城市 · 可接受外派"
+    - 深圳
+    - {t: example@example.com, u: "mailto:example@example.com"}
   links:
-    - { label: 作品集, url: "https://example.com/work/", short: "example.com/work" }
-    - { label: GitHub, url: "https://github.com/example", short: "github.com/example" }
-  stats:
-    - { n: "2,100 万", l: "近三年签单" }
-    - { n: "68 家", l: "海外渠道客户" }
-    - { n: "12 国", l: "覆盖市场" }
-    - { n: "4 人", l: "带团队规模" }
-  lede: >
-    通信工程科班，六年海外 B2B，两次长期外派（东南亚 / 西欧）。
-    我的做法是先摸清客户的决策链和验收口径，再决定报什么方案，所以签单周期比团队均值短约三成。
-    现在负责企业服务产品线的海外渠道，下一步想把区域从 12 国扩到 20 国。
-
-style:
-  preset: swiss
-  accent: "#2F5BEA"
-  density: normal
-
+    - {label: GitHub, url: "https://example.com/work", icon: "../assets/icon-github.png"}
+    - {label: Gmail邮箱, url: "https://example.com/contact", icon: "../assets/icon-gmail.png"}
+  photo: "../assets/sample-photo.png"
+delivery: {pages: 1}
+facts:
+  - {id: F001, statement: 独立设计 12 封新人引导邮件，示例激活率为 30%。, status: confirmed, ownership: personal, source: 虚构样例事实, note: 可解释激活口径与邮件分批方式。}
+  - {id: F002, statement: 独立分析 3 个用户分群，示例次周留存提升 20%。, status: confirmed, ownership: personal, source: 虚构样例事实, note: 可解释分群条件与留存口径。}
+  - {id: F003, statement: 协助团队完成 2 次运营复盘，只负责材料整理。, status: authorized, ownership: assisted, source: 虚构样例授权调整, note: 不主张独立主导复盘。}
+  - {id: F004, statement: 独立编写 4 份新人指南，示例重复咨询下降 30%。, status: confirmed, ownership: personal, source: 虚构样例事实, note: 可说明咨询统计周期。}
+  - {id: F005, statement: 团队共同上线 5 场用户活动，本人负责报名整理。, status: confirmed, ownership: team, source: 虚构样例事实, note: 团队成果不归为个人独立成果。}
+  - {id: F006, statement: 独立用 7 天完成一个演示型反馈整理工具。, status: confirmed, ownership: demo, source: 虚构样例项目, note: 演示项目不冒充生产环境成果。}
+  - {id: F007, statement: 独立整理 6 个内容模板，示例整理时间下降 40%。, status: confirmed, ownership: personal, source: 虚构样例项目, note: 可展示模板结构与计时口径。}
+  - {id: F008, statement: 协助 3 个跨职能小组统一反馈标签。, status: confirmed, ownership: assisted, source: 虚构样例项目, note: 本人只负责标签表维护。}
+  - {id: F009, statement: 独立清理 200 条演示记录，抽样核对 95% 的标签一致性。, status: confirmed, ownership: demo, source: 虚构样例项目, note: 演示数据不作为真实业务业绩。}
+  - {id: F010, statement: 完成示例大学管理学本科学习。, status: confirmed, ownership: personal, source: 虚构样例教育经历, note: 学校与学位均为虚构。}
+  - {id: F011, statement: 能使用英语进行书面工作沟通。, status: confirmed, ownership: personal, source: 虚构样例技能, note: 不虚构语言考试成绩。}
+  - {id: F012, statement: 能使用表格进行分群、透视与基础图表分析。, status: confirmed, ownership: personal, source: 虚构样例技能, note: 可现场解释常用函数。}
+jd:
+  requirements:
+    - {requirement: 新人激活与留存, evidence: [F001, F002]}
+    - {requirement: 数据复盘与跨团队协作, evidence: [F003, F008]}
+    - {requirement: AI 工具实践, evidence: [F006, F007]}
+    - {requirement: 可量化语言考试成绩, evidence: [], gap: true}
 sections:
   - title: 工作经历
     items:
-      - org: 示例科技（虚构）
-        role: 海外销售经理 · 企业服务产品线
-        date: 2023.04 – 至今
+      - org: 示例智能科技有限公司
+        role: 用户运营
+        date: 2023.07–至今
+        logo: "../assets/sample-logo.png"
+        logo_width: 5.6
         bullets:
-          - "**近三年签单 2,100 万元**（含续约 640 万元），客户以制造业与物流企业为主，平均客单价 31 万元。"
-          - "**接手时渠道只有 9 家、集中在 2 个国家**：判断问题不是覆盖不足而是渠道质量，于是按成交周期与复购把 9 家分成三档，只给 A 档配售前，一年后 A 档贡献 78% 回款。"
-          - "**把报价从「一单一议」改成三档标准包**：此前 60% 的商机卡在报价环节，改后从首次接触到出方案由 11 天压到 4 天。"
-          - "**带 4 人团队负责 12 国**，其中 7 国为远程管理；建立周度商机评审，把预测准确率从 55% 提到 82%。"
-          - "**把售前从「来单才配」改成「按渠道档位配」**：此前 A 档渠道也常等两周才拿到方案，改后平均响应 2 天，A 档续约率提升 11 个百分点。"
-          - "**接手第一年砍掉 3 个低效市场**：年投入 120 万元、回款不足 30 万元的两个国家停投，预算转投物流行业，第二年该行业贡献 46% 新增。"
-      - org: 示例国际贸易（虚构）
-        role: 区域销售主管 · 东南亚
-        date: 2020.07 – 2023.03
+          - {text: "独立设计 [[12 封]]新人引导邮件，按用户行为分批发送，示例激活率达到 **30%**。", facts: [F001]}
+          - {text: "独立分析 3 个用户分群，定位新手流程中的流失节点，示例次周留存提升 **20%**。", facts: [F002]}
+          - {text: "协助团队完成 2 次运营复盘，仅负责材料整理与问题清单维护。", facts: [F003]}
+          - {text: "独立编写 4 份新人指南，将高频问题整理为可检索条目，示例重复咨询下降 **30%**。", facts: [F004]}
+          - {text: "团队共同上线 5 场用户活动，本人负责报名整理与会后反馈归档。", facts: [F005]}
+      - org: 示例互联网公司
+        role: 运营助理
+        date: 2021.07–2023.06
         bullets:
-          - "**常驻吉隆坡 14 个月**，从零开发 36 家分销商，其中 11 家进入年度复购，区域业绩由第 6 升至第 2。"
-          - "**解决的是账期而不是价格**：本地分销商普遍要求 90 天账期，改成「30 天 + 提前付款折扣」后，回款周期缩短 41 天，退货率下降 6 个百分点。"
-          - "**把选品权交回分销商**：原来总部统一压货、滞销率 18%，改为给建议清单、分销商自主订货后，滞销率降到 7%。"
-      - org: 示例教育科技（虚构）
-        role: 商务拓展实习
-        date: 2019.09 – 2020.05
-        bullets:
-          - "**从 0 搭建校园渠道**：签下 23 所高校代理，单月最高流水 47 万元，实习期结束转为兼职顾问。"
-
-  - title: 项目
-    note: 自己搭的，每天都在用
-    items:
-      - org: 渠道健康度看板
-        role: 需求 → 设计 → 实现 → 自用
-        date: ""
-        bullets:
-          - "**把三家渠道的数据并成一张表**：原来每周手工汇总 3 小时，现在自动出结果，异常渠道 24 小时内能被看到。"
-      - org: 报价流水线
-        role: 减少重复劳动
-        date: ""
-        bullets:
-          - "**模板 + 参数化配置**，把 12 页报价书从 90 分钟压到 15 分钟，团队 4 人共用，季度节省约 60 工时。"
-      - org: 区域市场准入清单
-        role: 把踩过的坑变成可复用材料
-        date: ""
-        bullets:
-          - "**12 国的准入要求整理成一张表**（认证、税务、代理资质），新市场启动从 6 周降到 2 周，后来被总部拿去复用。"
-          - "**判断哪一国不值得进**同样写进表里：3 个国家因认证周期超过 9 个月、且年需求不足 200 万元，明确放弃，省下约 40 万元前期投入。"
-      - org: 新人上手手册
-        role: 带团队的副产品
-        date: ""
-        bullets:
-          - "**把「第一次拜访—方案—报价—签约」拆成 9 个动作**并配上话术，新人独立接管区域的时间从 4 个月缩短到 7 周。"
-          - "**手册每季度由团队自更新**，我只审判断错误的那几条；两年迭代 6 版，累计被 11 名同事使用。"
-
+          - {text: "参与用户反馈整理，沿用 3 个分群口径标记问题并输出每周摘要。", facts: [F002]}
+          - {text: "协助 2 次复盘材料准备，记录待办、负责人和后续核对结果。", facts: [F003]}
+          - {text: "将常见问题补入 4 份新人指南，保持术语与产品界面一致。", facts: [F004]}
   - title: 教育背景
     items:
-      - org: 示例大学（虚构）
-        role: 通信工程 · 本科
-        date: 2016.09 – 2020.06
+      - org: 示例大学
+        role: 管理学本科
+        date: 2017.09–2021.06
         bullets:
-          - "**GPA 3.5/4.0**；主修信号与系统、通信原理、数据结构；毕业设计为室内定位算法，定位误差从 2.1 米降到 0.8 米。"
-          - "**校队与社团**：英语辩论队两年，负责立论稿；这段训练后来直接用在英文提案的结构上。"
-
-  - title: 技能
+          - {text: "完成管理学本科学习，重点修读市场调研与统计分析课程。", facts: [F010]}
+  - title: 项目经历
+    note: 虚构演示项目
+    variant: project
+    body: 项目只展示问题、个人动作与可核验结果；演示数据不冒充真实业务业绩。
+    items:
+      - org: 用户反馈整理工具
+        date: 2025.02–2025.03
+        url: "https://example.com/feedback-demo"
+        bullets:
+          - {text: "独立用 7 天完成演示型反馈整理工具，先定义标签，再设计人工复核步骤。", facts: [F006]}
+          - {text: "整理 6 个内容模板，把重复说明拆成可复用结构，示例整理时间下降 **40%**。", facts: [F007]}
+      - org: 跨团队反馈标签表
+        date: 2024.10–2024.12
+        url: "https://example.com/taxonomy-demo"
+        bullets:
+          - {text: "协助 3 个跨职能小组统一反馈标签，本人负责标签表维护与版本记录。", facts: [F008]}
+          - {text: "将分歧项保留给团队复核，不夸大本人职责。", facts: [F008]}
+      - org: 演示数据清理与核对
+        date: 2024.05–2024.06
+        url: "https://example.com/data-demo"
+        bullets:
+          - {text: "独立清理 200 条演示记录，保留原始值、修改值与核对状态。", facts: [F009]}
+          - {text: "通过抽样复核达到 95% 的演示标签一致性，并记录剩余分歧。", facts: [F009]}
+  - title: 知识与技能
     bullets:
-      - "**语言**：英语（可独立做提案与谈判，常驻海外累计 26 个月）、马来语（日常沟通）"
-      - "**工具**：Salesforce 商机管理、Power BI 报表、Python 数据处理"
-      - "**商务**：渠道分层与激励设计、跨区域远程团队管理、合同与账期谈判"
-      - "**分析**：能用 Excel 与 Python 做区域漏斗归因，判断问题出在覆盖、转化还是价格"
-      - "**证书**：PMP（2022）、剑桥商务英语高级（BEC Higher）"
+      - {text: "英语：能进行书面工作沟通；未提供可量化语言考试成绩。", facts: [F011]}
+      - {text: "表格：能进行分群、透视与基础图表分析，并解释所用口径。", facts: [F012]}
+      - {text: "演示项目方法：先确认用户问题，再选择工具；不把工具名称当作成果。", facts: [F006]}
