@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>简历工坊 Pro · 中文简历的内容与版式</title>
-<meta name="description" content="简历工坊 Pro：有无旧简历或 JD 都能开始，一轮集中问卷补齐素材，先确认结构线框与全文，再重新终排并做真实渲染验收。">
+<meta name="description" content="简历工坊 Pro：全入口、事实治理、两次确认、可编辑 DOCX 与 Microsoft Word 同源 PDF，以及核心／严格／建议分层验收。">
 <meta property="og:title" content="简历工坊 Pro">
-<meta property="og:description" content="通用中文简历工作流：全入口、集中问卷、两次确认、内容定稿后重新终排。">
+<meta property="og:description" content="中文简历工作流：先统一事实，再确认结构与全文；支持 DOCX 同源 PDF 和真实渲染验收。">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://zhoujinq.github.io/resume-master/assets/resume-swiss.webp">
 <style>
@@ -286,14 +286,14 @@
           <p class="role">中文简历的内容与版式 · 一个会在交付前拦住你的技能</p>
           <div class="hairline"></div>
           <p class="meta">
-            <span>v1.2.0</span>
-            <span>三套版式</span>
+            <span>v2.0.0</span>
+            <span>三套 HTML 版式</span>
             <span>两次确认＋终排</span>
-            <span>10 项计算门禁</span>
-            <span>YAML → HTML → PDF</span>
+            <span>核心／严格／建议</span>
+            <span>YAML → DOCX → Word PDF</span>
           </p>
           <p class="thesis">
-            有无旧简历、JD 或作品链接都能开始。这里同时处理<strong>说什么</strong>和<strong>怎么说</strong>：先确认结构线框，再确认全文，正文定稿后重新终排，最后过脚本与真实视觉复核。
+            有无旧简历、JD 或作品链接都能开始。这里同时处理<strong>说什么</strong>和<strong>怎么排</strong>：先确认结构线框与全文，再选择唯一排版路线；可编辑 DOCX 由 Microsoft Word 导出<strong>同源 PDF</strong>，最后过脚本与真实视觉复核。
           </p>
         </div>
         <div class="specs">
@@ -414,7 +414,7 @@
         <tbody>
           <tr><td class="gate">G1</td><td class="mono">确认 1｜结构线框</td><td>页数、章节顺序、页面配比、阅读顺序与重点位置已确认</td></tr>
           <tr><td class="gate">G2</td><td class="mono">确认 2｜全文文字稿</td><td>完整正文、标蓝清单与 JD 差距表已确认</td></tr>
-          <tr><td class="gate">G3</td><td class="mono">终排与交付</td><td>内容膨胀后重新分页，QA 全绿＋真实视觉复核</td></tr>
+          <tr><td class="gate">G3</td><td class="mono">终排与交付</td><td>内容膨胀后重新分页；核心闭合，严格与未做单列，真实视觉复核</td></tr>
         </tbody>
       </table>
       <p class="strong-line">
@@ -424,31 +424,47 @@
     </div>
   </section>
 
-  <!-- ============ 门禁输出 ============ -->
+  <!-- ============ 同源路线与分层门禁 ============ -->
   <section class="sec row">
-    <div class="rail"><b>计算门禁</b><span>scripts/qa.py</span></div>
+    <div class="rail"><b>Word 同源</b><span>scripts/render_docx.py</span><span>scripts/export_word.ps1</span></div>
     <div>
-      <h2>十项能红的检查</h2>
+      <h2>可编辑 DOCX，PDF 只认同一排版源</h2>
+      <div class="split">
+        <div>
+          <h3>生成与导出</h3>
+          <p class="steps">YAML <i>→</i> DOCX <i>→</i> Microsoft Word PDF</p>
+          <p>正文保持普通可编辑段落；URL 是真实超链接，照片只给宽度并等比显示。浏览器和系统打印驱动不冒充 Word 同源导出。</p>
+        </div>
+        <div>
+          <h3>实际产物验收</h3>
+          <p class="steps">全文一致 <i>→</i> 链接 <i>→</i> 字体／照片 <i>→</i> 重导出</p>
+          <p>不看“应该如此”的生成参数，直接检查 DOCX、PDF 和逐页渲染图。未安装字体、未做视觉或未做第二次导出，都保留 NOT_RUN。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec row">
+    <div class="rail"><b>分层门禁</b><span>scripts/qa.py</span></div>
+    <div>
+      <h2>核心、严格、建议，不再只报“全绿”</h2>
       <p class="lede">
-        能算的都交给脚本，退出码非 0 就是不过。下面是一次真实输出，对象是首屏那份 PDF——不是示意。
+        退出码 0 表示核心闭合，1 表示有失败，2 表示核心未完成。严格项未做不会被藏进 PASS；建议未达也不会冒充核心失败。
       </p>
       <table>
-        <caption>resume-master QA · demo-swiss.pdf</caption>
-        <thead><tr><th>判定</th><th>检查项</th><th>结果</th></tr></thead>
+        <caption>虚构样例的真实 Word 双导出验收摘要</caption>
+        <thead><tr><th>状态</th><th>检查项</th><th>结果</th></tr></thead>
         <tbody>
-          <tr><td class="ok">✅</td><td>文本越界</td><td class="mono">全部在版心内</td></tr>
-          <tr><td class="ok">✅</td><td>页数</td><td class="mono">2 页</td></tr>
-          <tr><td class="ok">✅</td><td>末页留白</td><td class="mono">占用 41%</td></tr>
-          <tr><td class="ok">✅</td><td>禁忌词</td><td class="mono">未命中</td></tr>
-          <tr><td class="ok">✅</td><td>待补占位</td><td class="mono">无</td></tr>
-          <tr><td class="ok">✅</td><td>占位符</td><td class="mono">无残留</td></tr>
-          <tr><td class="ok">✅</td><td>联系方式</td><td class="mono">3 项</td></tr>
-          <tr><td class="ok">✅</td><td>外部链接</td><td class="mono">2 条</td></tr>
-          <tr><td class="ok">✅</td><td>日期格式</td><td class="mono">4 条全部统一</td></tr>
-          <tr><td class="ok">✅</td><td>内容密度</td><td class="mono">17 / 18 条带数字或判断</td></tr>
+          <tr><td class="ok">PASS · 核心</td><td>源文覆盖</td><td class="mono">66 段源文均出现在 PDF</td></tr>
+          <tr><td class="ok">PASS · 核心</td><td>DOCX／PDF 文本一致性</td><td class="mono">归一化后 1,602 字符逐字一致</td></tr>
+          <tr><td class="ok">PASS · 核心</td><td>可点击链接</td><td class="mono">DOCX 与 PDF 均为 2 / 2</td></tr>
+          <tr><td class="ok">PASS · 核心</td><td>视觉复核</td><td class="mono">逐页 PNG 已查看并登记</td></tr>
+          <tr><td class="ok">PASS · 严格</td><td>重导出像素差</td><td class="mono">同 DPI 下逐页像素差为 0</td></tr>
+          <tr><td class="tag bad">NOT_RUN · 严格</td><td>Word 编辑—撤销</td><td class="mono">未做，保持未完成</td></tr>
+          <tr><td class="tag bad">WARN · 建议</td><td>带照片样例的 PDF 照片像素</td><td class="mono">196 × 275，低于建议值，单独提醒</td></tr>
         </tbody>
       </table>
-      <p class="note-line">结论：0 阻断 / 0 提醒。另有四项只能看不能算——层级、留白、对齐、边缘，由 preview.py 出图后逐页复核。</p>
+      <p class="note-line">这组结果的正确结论是“核心通过、严格未完成、照片建议有提醒”，不是“全部通过”。完整 JSON／Markdown 报告同时保存文件哈希与每项证据。</p>
     </div>
   </section>
 
@@ -526,7 +542,7 @@
     <div class="row">
       <div class="rail"></div>
       <div class="sig">
-        <b>简历工坊 Pro</b> · v1.2.0 · 2026
+        <b>简历工坊 Pro</b> · v2.0.0 · 2026
         <p class="fine" style="text-align:left;margin:8px 0 0">
           样例人物与公司均为虚构；页面中的 PDF 截图由技能自身渲染，未做美化。
         </p>

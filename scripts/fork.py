@@ -37,7 +37,7 @@ def main():
         f"# fork: from={os.path.relpath(args.master)}\n"
         f"# target: {args.target or '未指定'}\n"
         f"# date: {datetime.date.today().isoformat()}\n"
-        "# 注意：这是派生版本，源文件是 master；改内容只改这里，不要回写 master。\n"
+        "# 注意：这是岗位派生版；通用事实变更先形成新的 master，再重新派生，岗位定制只改这里。\n"
     )
     io.open(args.out, "w", encoding="utf-8").write(head + body)
     print(f"OK  {args.out}")

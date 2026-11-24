@@ -87,7 +87,7 @@ class SkillContractTest(unittest.TestCase):
 
     def test_readme_is_friend_ready_and_versioned(self):
         text = read("README.md")
-        self.assertIn("v1.2.0", text)
+        self.assertIn("v2.0.0", text)
         self.assertIn("仅简历", text)
         self.assertIn("简历 + JD", text)
         self.assertIn("无简历", text)

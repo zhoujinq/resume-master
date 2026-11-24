@@ -10,7 +10,8 @@ YAML -> 自包含 HTML ->（可选）Chrome 无头打印成 A4 PDF
 
 为什么先 HTML 再 PDF：
   CSS 的排版能力（字距、行高、对齐、悬挂缩进、分页控制）比 reportlab 精细，
-  而且同一份 HTML 可以直接当网页用。Chrome 打印保证 1:1 还原。
+  而且同一份 HTML 可以直接当网页用。HTML 是本路线唯一排版源；
+  Chrome 打印不声称与 Word 或其他引擎像素一致。
 """
 import argparse
 import html as _html
