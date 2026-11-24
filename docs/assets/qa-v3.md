@@ -1,4 +1,4 @@
-# Resume Master v3.1.0 公开样例 QA
+# Resume Master v3.2.0 公开样例 QA
 
 数据来源：仓库内虚构样例。本报告只脱敏本机路径，不改写检查状态，也不声称自动证明事实真实。
 
@@ -27,8 +27,8 @@
 | core | 项目符号行距 | NOT_APPLICABLE | 没有折行项目符号 |
 | strict | 项目符号起始间距 | PASS | 起始间距=[16.92, 17.04, 17.07, 16.92, 16.92, 17.04, 17.04, 17.04, 16.92, 17.04, 17.04]pt |
 | core | 逐页视觉复核证据 | PASS | 收到 1/1 页；每页须为真实目标产物图像 |
-| core | Word COM 导出证据 | PASS | {"exporter": "Microsoft.Office.Interop.Word", "engine_version": "16.0", "input": "sample.docx", "output": "sample.pdf", "repeat_output": "sample-repeat.pdf", "exit_code": 0, "sha256": "f520a18a18d81727e0af286dbfe95c755fd6c1739c052621796cf983e1d08088", "repeat_sha256": "c4f59373e9f60c91861066d2a38f40e0aa8a61b49a2ae64ccfac583b5fcf8c58", "timestamp": "2026-11-24T19:43:23.4861565+08:00"} |
-| strict | 真实 Word 编辑—撤销 | PASS | {"exporter": "Microsoft.Office.Interop.Word", "source": "sample.docx", "temp_copy": true, "before_sha256": "10ef54bf3fe0936052f727245cc77eb70c4b26727251a85735e923d112e5d3f7", "during_sha256": "304c5f2f1f8f9fbc5d18d0c5ce7619cf21e067cf165d606c595ebff986b32c9d", "after_sha256": "10ef54bf3fe0936052f727245cc77eb70c4b26727251a85735e923d112e5d3f7", "replacement_count": 1, "undo_count": 1, "pages_before": 1, "pages_after": 1, "saved": false, "source_unchanged": true, "timestamp": "2026-11-24T19:43:53.1243043+08:00"} |
+| core | Word COM 导出证据 | PASS | {"exporter": "Microsoft.Office.Interop.Word", "engine_version": "16.0", "input": "sample.docx", "output": "sample.pdf", "repeat_output": "sample-repeat.pdf", "exit_code": 0, "sha256": "53353d4d09d766a215200fda0b15999cb636e2319b82dc9eb6cf15e4941e2a9e", "repeat_sha256": "9d77167c2635e2e5274845b805fb6720c4ddd116ed1e027cdd342a739a934d02", "timestamp": "2026-11-24T20:43:35.8903419+08:00"} |
+| strict | 真实 Word 编辑—撤销 | PASS | {"exporter": "Microsoft.Office.Interop.Word", "source": "sample.docx", "temp_copy": true, "before_sha256": "10ef54bf3fe0936052f727245cc77eb70c4b26727251a85735e923d112e5d3f7", "during_sha256": "304c5f2f1f8f9fbc5d18d0c5ce7619cf21e067cf165d606c595ebff986b32c9d", "after_sha256": "10ef54bf3fe0936052f727245cc77eb70c4b26727251a85735e923d112e5d3f7", "replacement_count": 1, "undo_count": 1, "pages_before": 1, "pages_after": 1, "saved": false, "source_unchanged": true, "timestamp": "2026-11-24T20:44:35.6773565+08:00"} |
 | strict | 重复导出逐页像素 | PASS | 144 DPI 逐页差分 [0] |
 | advisory | 末页留白 | PASS | 逐页文字纵坐标占比=[88.9]；仅提醒 |
 | advisory | PDF 体积 | PASS | 0.10 MB；建议不超过 2 MB |
@@ -37,5 +37,7 @@
 
 - 真实 V53.1 内容的私有影子输入完成两页 DOCX／Word PDF 双导出；32 条事实、6/6 链接、逐页文本与 144 DPI 重复导出像素差 0 均通过。私有数据、路径和图像不进入公开仓库。
 - 另一组完全虚构的无照片、超长链接、三页长文样例完成同一路线验收；15/15 链接、3 页页数、编辑—撤销和逐页像素差 0 均通过。
-- v3.1.0 新增完全虚构的极简候选人：无个人主页、GitHub、任何项目、照片或外部链接。真实一页 DOCX／Word PDF 无空白链接段与空章节，链接和照片检查为 NOT_APPLICABLE，编辑—撤销与 144 DPI 逐页像素差 0 通过；仅保留末页留白建议 WARN。
+- v3.2.0 复测完全虚构的极简候选人：无个人主页、GitHub、任何项目、照片或外部链接。真实一页 DOCX／Word PDF 无空白链接段与空章节，链接和照片检查为 NOT_APPLICABLE，编辑—撤销与 144 DPI 逐页像素差 0 通过；仅保留末页留白建议 WARN。
+- 50 项自动测试全部通过，其中 12 项覆盖结构套话、误伤、对话残留、非正文字段与数字对账、人工语义复核。相同数字但改变归属的样本不能被机械对账包装成语义等价。
+- 丰富与极简样例均实际执行 `--baseline` 命令行对账；机械字段一致如实记为 PASS。正文发生变化时必须保留 SEMANTIC_REVIEW 人工提醒；本轮未执行同题人工盲评，不宣称写作质量已经胜过其他方法。
 - 上述补充结果只说明本次实测，不构成对任意环境、任意内容或任意 Word 版本的保证。

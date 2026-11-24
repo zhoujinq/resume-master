@@ -11,6 +11,12 @@
 
 核心项存在 `FAIL` 时退出 1；核心项存在 `NOT_RUN` 时退出 2。严格项未执行会让总体保持 `INCOMPLETE`。建议项单独列出，不能混入核心通过率。
 
+## 写作复核
+
+内容审计先检查重复、空泛与结构套话。对话残留、文档自叙和猜测事实为核心 FAIL；真实对比、专业术语和弱模式只作 WARN，不自动替换。命中数不是写作配额，不输出 AI 检测率、人味百分比或伪精确写作分。
+
+纯润色运行 `python scripts/content_audit.py revised.yaml --baseline before.yaml --json writing-audit.json`。只允许 `bullet.text` 改变；非正文字段或数字变化为 FAIL。机械对账通过仍需人工核对名称、动作、范围、因果与限制条件，报告中保留 `SEMANTIC_REVIEW`，不得宣称自动证明原意未变。
+
 ## 核心
 
 证据台账、源文覆盖、DOCX/PDF 全文一致、页数、逐字符越界、占位符、实际字体、固定字号、文本颜色、双端链接、照片坐标、项目符号行距、Word COM 导出日志与逐页视觉证据。

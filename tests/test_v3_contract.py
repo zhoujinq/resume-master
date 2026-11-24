@@ -37,7 +37,7 @@ class V3SingleRouteContractTest(unittest.TestCase):
             self.assertIn("思源宋体", text, relative)
             self.assertIn("思源黑体", text, relative)
             self.assertIn("#2F5BEA", text, relative)
-            self.assertIn("v3.1.0", text, relative)
+            self.assertIn("v3.2.0", text, relative)
         html = read("docs/index.html")
         self.assertNotIn("三种气质", html)
         self.assertNotIn("只有一个版本", html)
@@ -48,20 +48,29 @@ class V3SingleRouteContractTest(unittest.TestCase):
 
     def test_postmortem_turns_every_cluster_into_a_gate(self):
         text = read("docs/postmortem-2026-11-20-to-24.md")
-        for index in range(1, 16):
+        for index in range(1, 17):
             self.assertIn(f"P{index:02d}", text)
         for gate in ("D02", "E01", "E02", "E03", "A01", "A04", "Q01", "Q03", "Q04", "H01"):
             self.assertIn(gate, text)
 
-    def test_v31_first_principles_cross_domain_and_opposition_are_versioned(self):
-        design = read("docs/design-rationale-v3.1.0.md")
-        for phrase in ("第一性原理", "跨领域", "最强反对者", "个人主页", "GitHub", "Vibe Coding", "双夹具", "配置后丢失"):
+    def test_v32_first_principles_cross_domain_and_opposition_are_versioned(self):
+        design = read("docs/design-rationale-v3.2.0.md")
+        for phrase in ("第一性原理", "跨领域", "最强反对者", "Humanizer", "48 张配图", "语义等价", "不是启动门槛", "AI 检测"):
             self.assertIn(phrase, design)
-        matrix = read("docs/requirements-matrix-v3.1.0.md")
-        for requirement in ("R12", "R13", "R17", "R19", "R20", "R23"):
+        matrix = read("docs/requirements-matrix-v3.2.0.md")
+        for requirement in ("R12", "R23", "R24", "R27", "R30", "R33"):
             self.assertIn(requirement, matrix)
-        self.assertFalse((ROOT / "docs/design-rationale-v3.0.0.md").exists())
-        self.assertFalse((ROOT / "docs/requirements-matrix-v3.0.0.md").exists())
+        for version in ("v3.0.0", "v3.1.0"):
+            self.assertFalse((ROOT / f"docs/design-rationale-{version}.md").exists())
+            self.assertFalse((ROOT / f"docs/requirements-matrix-{version}.md").exists())
+
+    def test_writing_style_is_optional_audited_and_properly_licensed(self):
+        style = read("references/writing-style.md")
+        for phrase in ("KEEP", "CHANGE", "ADD", "不是启动门槛", "人工盲评", "人味百分比", "bullet.text"):
+            self.assertIn(phrase, style)
+        license_text = read("licenses/humanizer-LICENSE")
+        self.assertIn("Copyright (c) 2025 Siqi Chen", license_text)
+        self.assertIn("MIT License", license_text)
 
     def test_website_links_and_sample_metrics_match_current_artifacts(self):
         html = read("docs/index.html")
