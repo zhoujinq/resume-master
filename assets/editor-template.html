@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>封板后微调工作台 · resume-master v3.3.0</title>
+<style>
+:root{--accent:#2F5BEA;--ink:#141519;--body:#2B3038;--muted:#5A6069;--paper:#fff;--desk:#e9e7e2;--line:#d8d5cf;--sans:"思源黑体","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;--serif:"思源宋体","Source Han Serif SC","Noto Serif CJK SC","SimSun",serif}
+*{box-sizing:border-box}body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--sans);font-size:14px}button,input,select{font:inherit}button{cursor:pointer}.editor-bar{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.98);border-bottom:1px solid var(--line);padding:12px 18px;backdrop-filter:blur(12px)}.bar-title{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}.bar-title strong{font-family:var(--serif);font-size:20px}.bar-title span,.hint{color:var(--muted);font-size:12px}.toolbar{display:flex;flex-wrap:wrap;align-items:end;gap:8px}.tool{display:flex;flex-direction:column;gap:4px}.tool>span{font-size:11px;color:var(--muted)}.tool-row{display:flex;gap:4px;align-items:center}button,.file-button{border:1px solid #c9c6c0;background:#fff;color:var(--ink);border-radius:7px;padding:7px 10px;min-height:34px}button:hover,.file-button:hover{border-color:var(--accent)}button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}button.danger{color:#9f2d2d}.file-button{display:inline-flex;align-items:center}.file-button input{display:none}input[type=number]{width:78px;border:1px solid #c9c6c0;border-radius:6px;padding:6px;background:#fff}input[type=text]{width:142px;height:34px;border:1px solid #c9c6c0;border-radius:6px;padding:6px;background:#fff;font-size:12px}input[type=color]{width:38px;height:34px;padding:2px;border:1px solid #c9c6c0;border-radius:6px;background:#fff}select{height:34px;border:1px solid #c9c6c0;border-radius:6px;background:#fff;padding:4px}.separator{width:1px;height:32px;background:var(--line);margin:0 3px}.status-line{display:flex;flex-wrap:wrap;gap:12px;margin-top:9px;font-size:12px;color:var(--muted)}#status.warning,[role=alert]{color:#9b5313}#factWarning,#overflowWarning{padding:3px 7px;background:#fff3d9;border-radius:5px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:20px;align-items:start}.resume-stage{min-width:0;overflow:auto;padding:26px}.resume-page{position:relative;width:210mm;min-height:297mm;padding:14mm 17mm 18mm;margin:0 auto 26px;background:var(--paper);box-shadow:0 4px 24px rgba(20,21,25,.12);color:var(--body);break-after:page;page-break-after:always}.resume-page:last-child{break-after:auto;page-break-after:auto}.resume-photo{position:absolute;left:171.185mm;top:14.852mm;width:22.005mm;height:30.7975mm;object-fit:cover}.resume-block{position:relative;margin:var(--before) 0 var(--after);font-size:var(--fs);line-height:var(--lh);font-family:var(--sans);overflow-wrap:anywhere}.editable,[data-field]{outline:none;min-width:1em}.editable:focus,[data-field]:focus{background:color-mix(in srgb,var(--accent) 7%,transparent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 10%,transparent)}.accent{color:var(--accent);font-weight:700}a{color:var(--accent);text-decoration:underline;text-decoration-thickness:.06em;text-underline-offset:.14em}.block-name{font-family:var(--serif);font-weight:700;color:var(--ink);letter-spacing:.135em}.block-role{font-weight:700;color:var(--accent);border-bottom:.7pt solid #1a1d22;padding-bottom:2pt}.block-contact,.block-links,.block-note{color:var(--muted)}.block-section{font-family:var(--serif);font-weight:700;color:var(--ink);border-bottom:.5pt solid #1a1d22;padding-bottom:2pt}.block-entry{font-weight:400}.entry-line{display:flex;align-items:baseline;gap:.48em}.entry-org{font-weight:700}.entry-role{color:var(--muted)}.entry-role:not(:empty):before{content:"— "}.section-line{display:flex;align-items:baseline;gap:12px}.section-note{margin-left:auto;font-family:var(--sans);font-size:8pt;font-weight:400;color:var(--muted);white-space:nowrap}.entry-date{margin-left:auto;font-family:var(--serif);color:#857f74;white-space:nowrap;text-align:right}.entry-link{flex:none;text-decoration:none}.block-bullet{padding-left:1em}.block-bullet:before{content:"•";position:absolute;left:0;top:0}.help-panel{position:sticky;top:174px;margin:26px 20px 26px 0;background:#f8f7f3;border:1px solid var(--line);border-radius:12px;padding:18px}.help-panel h2{font-family:var(--serif);font-size:18px;margin:0 0 12px}.help-panel h3{font-size:13px;margin:18px 0 6px}.help-panel p,.help-panel li{font-size:12px;line-height:1.75;color:var(--muted)}.help-panel ol,.help-panel ul{padding-left:18px;margin:6px 0}.key{display:inline-block;border:1px solid #bbb7ae;border-bottom-width:2px;border-radius:4px;background:#fff;padding:0 5px;color:var(--ink)}.privacy{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
+@media(max-width:1100px){.workspace{display:block}.help-panel{position:static;margin:0 20px 24px}.resume-stage{padding:16px}.editor-bar{position:relative}.separator{display:none}}
+@media(max-width:600px){.editor-bar{padding:10px}.toolbar{gap:6px}.bar-title strong{font-size:18px}.help-panel{margin:0 10px 16px}.resume-stage{padding:10px}}
+@page{size:A4;margin:0}
+@media print{html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.editor-bar,.help-panel{display:none!important}.workspace{display:block}.resume-stage{overflow:visible;padding:0}.resume-page{margin:0;box-shadow:none;width:210mm;min-height:297mm}.editable:focus,[data-field]:focus{background:transparent;box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="editor-bar">
+  <div class="bar-title"><strong>封板后微调工作台</strong><span>resume-master v3.3.0 · 基于当前封板 PDF 派生</span></div>
+  <div class="toolbar" aria-label="简历微调工具">
+    <div class="tool"><span>选中文字</span><div class="tool-row"><button id="bold" type="button" title="Ctrl+B"><b>B</b> 加粗</button><input id="textColor" type="color" value="#2F5BEA" aria-label="文字颜色"><button id="applyColor" type="button">变色</button><button id="emphasize" type="button">强调色＋加粗</button></div></div>
+    <div class="tool"><span>全局强调色</span><input id="accentColor" type="color" value="#2F5BEA" aria-label="全局强调色"></div>
+    <div class="separator" aria-hidden="true"></div>
+    <div class="tool"><span>调整范围</span><select id="styleScope"><option value="current">当前段落</option><option value="kind">同类段落</option><option value="all">全文</option></select></div>
+    <div class="tool"><span>字号 pt</span><input id="fontSize" type="number" step="0.1" min="6" max="72" value="9.5"></div>
+    <div class="tool"><span>行距 pt</span><input id="lineHeight" type="number" step="0.1" min="7" max="100" value="13.8"></div>
+    <div class="tool"><span>段后 pt</span><input id="paragraphSpace" type="number" step="0.1" min="0" max="60" value="2.0"></div>
+    <div class="tool"><span>&nbsp;</span><div class="tool-row"><button id="applyTypography" type="button">应用 0.1pt 调整</button><button id="resetTypography" type="button">恢复段落样式</button></div></div>
+    <div class="separator" aria-hidden="true"></div>
+    <div class="tool"><span>微调副本版本</span><input id="revision" type="text" value="v3.3.0-微调.1" maxlength="60" aria-label="微调副本版本"></div>
+    <div class="tool"><span>导出当前最新版</span><div class="tool-row"><button id="exportDocx" class="primary" type="button">导出 Word .docx</button><button id="exportPdf" class="primary" type="button">打印／另存为 PDF</button></div></div>
+    <div class="tool"><span>编辑数据／封板原件</span><div class="tool-row"><button id="backup" type="button">备份</button><label class="file-button">恢复<input id="restore" type="file" accept="application/json,.json"></label><button id="downloadOriginal" type="button">封板 Word</button><button id="resetAll" class="danger" type="button">重置封板原版</button></div></div>
+  </div>
+  <div class="status-line"><span id="status" role="status">正在载入…</span><span id="factWarning" role="alert" hidden></span><span id="overflowWarning" role="alert" hidden></span></div>
+</header>
+<main class="workspace">
+  <div class="resume-stage"><div id="editor" aria-label="可编辑简历"></div></div>
+  <aside class="help-panel">
+    <h2>只改你需要改的</h2>
+    <ol><li>点击正文直接改文字；选中文字后按 <span class="key">Ctrl</span>＋<span class="key">B</span> 加粗。</li><li>选中文字可变色；“强调色＋加粗”用于少量关键成果。</li><li>把光标放进段落，再调字号、行距和段后距；步进均为 0.1pt。</li><li>导出前检查分页与事实提醒，再下载 Word 或另存为 PDF。</li></ol>
+    <h3>精度边界</h3>
+    <p>网页和浏览器 PDF 保留 0.1pt。标准 DOCX 的字号字段只能存 0.5pt，导出时会提示取整；行距与段距可按更细的 twips 保存。</p>
+    <h3>PDF 怎么导出</h3>
+    <p>点击“打印／另存为 PDF”，目标打印机选择“另存为 PDF”，纸张 A4、缩放 100%、边距无，并开启背景图形。导出内容来自当前页面，不是旧封板 PDF。</p>
+    <h3>保存与隐私</h3>
+    <p>修改自动保存在此浏览器。换设备或长期留存，请同时“备份”编辑数据。此页面无运行时外部请求；公开示例均为虚构内容。</p>
+    <p class="privacy">手动修改数字、时间或归属后，请重新核对事实。系统只提示数字变化，不会冒充人工复核。</p>
+  </aside>
+</main>
+<script>window.RESUME_DATA = /*__RESUME_DATA__*/;</script>
+<script>
+/*__JSZIP__*/
+</script>
+<script>
+/*__EDITOR_RUNTIME__*/
+</script>
+</body>
+</html>

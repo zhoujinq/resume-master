@@ -1,7 +1,7 @@
 [project]
 name = "resume-master"
-version = "3.2.0"
-description = "Evidence-first Chinese resume workflow with one DOCX to Microsoft Word PDF production route"
+version = "3.3.0"
+description = "Evidence-first Chinese resume workflow with Word-sealed production and a post-freeze single-file editor"
 requires-python = ">=3.10"
 dependencies = [
   "python-docx>=1.1",

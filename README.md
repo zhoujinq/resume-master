@@ -1,10 +1,10 @@
 # 简历工坊 Pro · resume-master
 
-**v3.2.0**｜MIT｜[项目预览](https://zhoujinq.github.io/resume-master/)
+**v3.3.0**｜MIT｜[项目预览](https://zhoujinq.github.io/resume-master/)
 
-给 AI Agent 使用的中文简历工作流。v3 把目标从“提供更多模板”改为“减少错误自由度”：一份事实基线、一份定向正文、一个 DOCX 排版源、一次 Microsoft Word 同源导出、一套真实产物验收。
+给 AI Agent 使用的中文简历工作流。v3 把目标从“提供更多模板”改为“减少错误自由度”：一份事实基线、一份定向正文、一个 DOCX 排版源、一次 Microsoft Word 同源导出、一套真实产物验收。v3.3 在首个封板大版本后增加单文件微调 HTML，让用户自己改文字、粗体、颜色和 0.1pt 排版，并导出最新 Word／浏览器 PDF。
 
-唯一视觉标准：**思源宋体＋思源黑体，强调色 #2F5BEA**。没有主题切换、字体覆盖、备用渲染器或第二条 PDF 路线。
+封板前唯一视觉标准：**思源宋体＋思源黑体，强调色 #2F5BEA**。没有主题切换、字体覆盖、备用渲染器或第二条初始 PDF 路线。封板后的个人副本可以局部微调，但不覆盖封板原件。
 
 ## 为什么推倒重来
 
@@ -20,9 +20,9 @@ v3 将 11 月 20—24 日的 16 类问题归并为八个根因：目标漂移、
 
 无旧简历、只有 JD 或零散经历也可以开始。个人主页、GitHub、Vibe Coding／其他项目、作品集和照片均为可选素材，不是好简历的默认组成；没有就省略，不生成空区或虚构内容。材料不足时一轮集中补问；只有 JD 时，JD 只决定素材优先级，不会变成你的经历。
 
-只想上传一个文件时，使用自包含的 [Lite 文件版](lite/文件版skill.md)。Lite 同样遵循 v3.2.0 的唯一视觉标准，但不承诺脚本和 Word 自动化一定可用。
+只想上传一个文件时，使用自包含的 [Lite 文件版](lite/文件版skill.md)。Lite 同样遵循 v3.3.0 的唯一视觉标准，但不承诺脚本和 Word 自动化一定可用。
 
-## v3.2.0 的七个核心机制
+## v3.3.0 的八个核心机制
 
 1. **证据台账**：每条 bullet 引用事实 ID；事实记录来源、确认状态、归属和可答辩说明。暂定事实不能进入终稿。
 2. **JD 差距映射**：区分已有证据与真实缺口，不生成虚构匹配分，不用 ATS 分数代替招聘判断。
@@ -31,6 +31,7 @@ v3 将 11 月 20—24 日的 16 类问题归并为八个根因：目标漂移、
 5. **按需信息架构**：个人主页、GitHub、任何项目和照片都可省略；章节由真实证据与 JD 决定。未配置链接与“配置后丢失”严格区分，前者 N/A，后者 FAIL。
 6. **唯一 DOCX 路线**：正文、编号、链接、照片和 Logo 写入可编辑 OOXML；PDF 只由 Microsoft Word 从同一 DOCX 导出。
 7. **真实 QA**：检查全文一致、文本层、实际字体与字号、颜色、链接、照片坐标、越界、逐页视觉、重复导出像素差和真实 Word 编辑—撤销。
+8. **封板后微调工作台**：最终 YAML、对应 PDF、封板 DOCX 与合格 QA 派生单文件 HTML；支持文字编辑、Ctrl+B、选区变色、当前段／同类／全文 0.1pt 调整、本地保存与 JSON 备份。最新 DOCX 以封板文件为模板原位更新；PDF 打印当前页面。
 
 本轮完整研读指定文章正文及 48 张配图，并审查 Humanizer 4.0.0。吸收真实样本、逐句反馈、同题对照和渐进披露的方法，但不照搬英文禁令，不把十篇样本变成启动门槛。写作细节见 [写作与同题对照](references/writing-style.md)；Humanizer 原作者 MIT 许可保留在 `licenses/humanizer-LICENSE`。
 
@@ -76,6 +77,14 @@ python scripts/qa.py examples/sample.yaml --pdf sample.pdf --docx sample.docx --
 python scripts/publish_qa.py qa.json qa-public.md
 ```
 
+首个封板大版本验收后，按需派生个人微调 HTML：
+
+```bash
+python scripts/editor.py resume.yaml --pdf resume.pdf --docx resume.docx --qa qa.json -o resume-editor.html
+```
+
+`--docx` 省略时取 PDF 同名文件。生成器核对 YAML、PDF、DOCX 内容覆盖与段落映射，并把封板 DOCX 内联为最新导出的模板。HTML 离线自包含；直接改文字，Ctrl+B 加粗，选区变色，字号／行距／段距按 0.1pt 调整。自动保存之外请下载 JSON 备份。Word 导出读取最新状态；PDF 按钮打开浏览器打印界面。DOCX 字号仅支持 0.5pt，取整会提示。详见 [封板后编辑器](references/editor.md)，[打开虚构样例](docs/editor.html)。
+
 ## 数据契约
 
 ```yaml
@@ -113,12 +122,13 @@ sections:
 | Q · QA 自证 | 未做冒充通过、0/0 假通过、像素比较漏报、比较器误报、严格项被核心通过掩盖 |
 | H · 交接与范围 | 已确认事实被降级、来源哈希变化未提示、公开仓库泄漏隐私 |
 | W · 写作与对账 | 结构套话、误伤真实表达、对话残留、非正文字段或数字漂移、语义假通过 |
+| X · 封板后微调 | 未封板先派生、DOCX 模板错配、导出旧稿、0.1pt 虚假精度、跨简历恢复、离线资源或链接丢失 |
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-开发依据：[需求依赖矩阵](docs/requirements-matrix-v3.2.0.md) · [第一性原理与反方评审](docs/design-rationale-v3.2.0.md) · [验收规则](references/acceptance.md)。
+开发依据：[需求依赖矩阵](docs/requirements-matrix-v3.3.0.md) · [第一性原理与反方评审](docs/design-rationale-v3.3.0.md) · [验收规则](references/acceptance.md)。
 
 ## 验收口径
 
@@ -133,4 +143,4 @@ python -m unittest discover -s tests -p "test_*.py" -v
 - 不做 ATS 打分、自动投递、招聘平台对接、面试题库，不承诺面试或录用结果。
 - 没有 Microsoft Word 时，PDF 双导出和 Word 编辑—撤销必须保持 `NOT_RUN`，不能换第二条路线冒充完成。
 - 公开样例和测试全部虚构；真实姓名、联系方式、公司、客户、内部指标、照片和本机路径不得进入公开仓库。
-- Git 历史保留旧版本用于回滚；活跃代码、样例、Skill 与项目页面只维护 v3.2.0 这一条生产标准。
+- Git 历史保留旧版本用于回滚；活跃代码、样例、Skill 与项目页面只维护 v3.3.0 的封板前生产标准与封板后派生微调层。
