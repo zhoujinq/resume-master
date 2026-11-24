@@ -149,6 +149,13 @@ def _link_map(pdf):
 def link_check(expected, found, label):
     expected_set = set(expected)
     found_set = set(found)
+    if not expected_set and not found_set:
+        return {
+            "status": "NOT_APPLICABLE",
+            "detail": f"{label} 未配置外部链接，不适用；不会把可选内容缺失当成通过或缺陷",
+            "missing": [],
+            "extra": [],
+        }
     return {
         "status": "PASS" if expected_set == found_set else "FAIL",
         "detail": f"{label} {len(found_set)}/{len(expected_set)}；缺失={sorted(expected_set-found_set)}；额外={sorted(found_set-expected_set)}",
@@ -249,6 +256,12 @@ def photo_layout_status(pdf, has_photo):
     actual = (rect.x0, rect.y0, rect.width, rect.height)
     ok = all(abs(a - e) <= 3.0 for a, e in zip(actual, expected))
     return {"status": "PASS" if ok else "FAIL", "detail": f"page={page_number} x={rect.x0:.1f} y={rect.y0:.1f} w={rect.width:.1f} h={rect.height:.1f}"}
+
+
+def photo_advisory_status(has_photo, dimensions):
+    if not has_photo:
+        return {"status": "NOT_APPLICABLE", "detail": "未配置照片，不执行照片像素建议"}
+    return image_quality_status(dimensions)
 
 
 def compare_pdf_pixels(first, second, third=None, dpi=144):
@@ -405,7 +418,10 @@ def run(args):
             result = link_check(expected_links, found_docx, "DOCX URL")
             add("DOCX 真实链接", "core", result["status"], result["detail"])
             missing_pdf = set(found_docx) - set(found)
-            add("链接双端同步", "core", "FAIL" if missing_pdf else "PASS", f"PDF 缺失 {sorted(missing_pdf)}")
+            if not expected_links and not found_docx and not found:
+                add("链接双端同步", "core", "NOT_APPLICABLE", "未配置外部链接，无双端同步对象")
+            else:
+                add("链接双端同步", "core", "FAIL" if missing_pdf else "PASS", f"PDF 缺失 {sorted(missing_pdf)}")
         else:
             add("DOCX 真实链接", "core", "NOT_RUN", "缺少 DOCX")
             add("链接双端同步", "core", "NOT_RUN", "缺少 DOCX")
@@ -413,13 +429,15 @@ def run(args):
             lower_text = all_text.lower()
             label_ok = any(label.lower() in lower_text for label in LINK_LABELS["gmail"])
             add("Gmail 标签语义", "core", "PASS" if label_ok else "FAIL", "不能只出现 Gmail 字样而没有邮箱标签")
-        photo = photo_layout_status(pdf, bool((data.get("meta") or {}).get("photo")))
+        has_photo = bool((data.get("meta") or {}).get("photo"))
+        photo = photo_layout_status(pdf, has_photo)
         add("照片坐标与尺寸", "core", photo["status"], photo["detail"])
         dimensions = set()
-        for page in pdf:
-            for image in page.get_images(full=True):
-                dimensions.add((int(image[2]), int(image[3])))
-        quality = image_quality_status(dimensions)
+        if has_photo:
+            for page in pdf:
+                for image in page.get_images(full=True):
+                    dimensions.add((int(image[2]), int(image[3])))
+        quality = photo_advisory_status(has_photo, dimensions)
         add("照片建议像素", "advisory", quality["status"], quality["detail"])
         wrap, starts = bullet_line_metrics(pdf)
         if wrap:

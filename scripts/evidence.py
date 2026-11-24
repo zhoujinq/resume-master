@@ -62,6 +62,36 @@ def validate_resume(data):
         if not str(fact.get("note") or "").strip():
             errors.append(f"{path}.note: 必须记录可答辩说明或待核对点")
 
+    sections = data.get("sections")
+    if not isinstance(sections, list) or not sections:
+        errors.append("sections: 至少一个含正文的章节")
+    else:
+        for index, section in enumerate(sections):
+            path = f"sections[{index}]"
+            if not isinstance(section, dict):
+                errors.append(f"{path}: 必须是对象")
+                continue
+            if not str(section.get("title") or "").strip():
+                errors.append(f"{path}.title: 不能为空")
+            visible = bool(
+                str(section.get("body") or "").strip()
+                or (section.get("bullets") or [])
+                or (section.get("items") or [])
+            )
+            if not visible:
+                errors.append(f"{path}: 空章节不得进入终稿；请省略该章节")
+
+    links = (data.get("meta") or {}).get("links")
+    if links is None:
+        links = []
+    if not isinstance(links, list):
+        errors.append("meta.links: 必须是列表；没有链接时省略此字段")
+    else:
+        for index, link in enumerate(links):
+            url = (link.get("url") or link.get("u")) if isinstance(link, dict) else None
+            if not str(url or "").strip():
+                errors.append(f"meta.links[{index}].url: 已配置链接必须有真实 URL；没有链接时省略整个 links 字段")
+
     for path, bullet in iter_bullets(data):
         if not isinstance(bullet, dict) or not str(bullet.get("text") or "").strip():
             errors.append(f"{path}: 必须使用包含 text 与 facts 的对象")

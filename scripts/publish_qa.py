@@ -38,7 +38,7 @@ def render_public_report(report, include_release_evidence=False):
     blocking = [check for check in checks if check.get("category") in {"core", "strict"} and check.get("status") in {"FAIL", "NOT_RUN"}]
     summary = "核心与严格项无 FAIL／NOT_RUN" if not blocking else f"仍有 {len(blocking)} 个核心或严格阻断项"
     lines = [
-        "# Resume Master v3.0.0 公开样例 QA",
+        "# Resume Master v3.1.0 公开样例 QA",
         "",
         "数据来源：仓库内虚构样例。本报告只脱敏本机路径，不改写检查状态，也不声称自动证明事实真实。",
         "",
@@ -57,6 +57,7 @@ def render_public_report(report, include_release_evidence=False):
             "",
             "- 真实 V53.1 内容的私有影子输入完成两页 DOCX／Word PDF 双导出；32 条事实、6/6 链接、逐页文本与 144 DPI 重复导出像素差 0 均通过。私有数据、路径和图像不进入公开仓库。",
             "- 另一组完全虚构的无照片、超长链接、三页长文样例完成同一路线验收；15/15 链接、3 页页数、编辑—撤销和逐页像素差 0 均通过。",
+            "- v3.1.0 新增完全虚构的极简候选人：无个人主页、GitHub、任何项目、照片或外部链接。真实一页 DOCX／Word PDF 无空白链接段与空章节，链接和照片检查为 NOT_APPLICABLE，编辑—撤销与 144 DPI 逐页像素差 0 通过；仅保留末页留白建议 WARN。",
             "- 上述补充结果只说明本次实测，不构成对任意环境、任意内容或任意 Word 版本的保证。",
         ]
     lines.append("")
@@ -67,7 +68,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("qa_json", type=Path)
     parser.add_argument("output", type=Path)
-    parser.add_argument("--release-evidence", action="store_true", help="仅 v3.0.0 发布时使用：附加本轮已实测的影子与边界结论")
+    parser.add_argument("--release-evidence", action="store_true", help="仅 v3.1.0 发布时使用：附加本轮已实测的影子与边界结论")
     args = parser.parse_args()
     report = json.loads(args.qa_json.read_text(encoding="utf-8"))
     args.output.write_text(render_public_report(report, include_release_evidence=args.release_evidence), encoding="utf-8")

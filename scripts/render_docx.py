@@ -270,20 +270,22 @@ def add_header(doc, meta, base):
         else:
             set_run(contact.add_run(str(value)), 8, SANS, color=MUTED)
 
-    links = fmt(doc.add_paragraph(), line=12, keep_next=True, align="left")
-    for index, item in enumerate(meta.get("links") or []):
-        if index:
-            set_run(links.add_run("  ·  "), 8, SANS, color=MUTED)
-        icon = resolve(base, item.get("icon"))
-        if icon:
-            run = links.add_run()
-            run.add_picture(str(icon), width=Mm(3.5), height=Mm(3.5))
-            set_run(run, 8, SANS, bold=True, color=INK)
-            set_run(links.add_run(" "), 8, SANS, bold=True, color=INK)
-        label = str(item.get("label") or "").strip()
-        url = str(item.get("url") or item.get("u") or "")
-        text = (label + " " if label else "") + str(item.get("short") or url)
-        hyperlink(links, text, url, 8)
+    link_items = meta.get("links") or []
+    if link_items:
+        links = fmt(doc.add_paragraph(), line=12, keep_next=True, align="left")
+        for index, item in enumerate(link_items):
+            if index:
+                set_run(links.add_run("  ·  "), 8, SANS, color=MUTED)
+            icon = resolve(base, item.get("icon"))
+            if icon:
+                run = links.add_run()
+                run.add_picture(str(icon), width=Mm(3.5), height=Mm(3.5))
+                set_run(run, 8, SANS, bold=True, color=INK)
+                set_run(links.add_run(" "), 8, SANS, bold=True, color=INK)
+            label = str(item.get("label") or "").strip()
+            url = str(item.get("url") or item.get("u") or "")
+            text = (label + " " if label else "") + str(item.get("short") or url)
+            hyperlink(links, text, url, 8)
 
 
 def add_section_heading(doc, section, page_index):

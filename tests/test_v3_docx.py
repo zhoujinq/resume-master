@@ -9,7 +9,7 @@ from docx import Document
 from lxml import etree
 from PIL import Image
 
-from v3_helpers import valid_data
+from v3_helpers import minimal_data, valid_data
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("resume_docx_v3", ROOT / "scripts" / "render_docx.py")
@@ -132,6 +132,21 @@ class V3DocxTest(unittest.TestCase):
             role_paragraph = root.xpath(".//w:body/w:p", namespaces=NS)[1]
             right = role_paragraph.find("w:pPr/w:ind", namespaces=NS).get("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}right")
             self.assertEqual("0", right)
+
+    def test_minimal_candidate_has_no_blank_link_line_or_project_section(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "minimal.docx"
+            renderer.build_docx(minimal_data(), target)
+            document = Document(target)
+            texts = [paragraph.text.strip() for paragraph in document.paragraphs]
+            self.assertTrue(texts)
+            self.assertTrue(all(texts), f"unexpected blank body paragraph: {texts}")
+            self.assertFalse(any("项目经历" in text for text in texts))
+            self.assertFalse(any("GitHub" in text or "http" in text for text in texts))
+            with zipfile.ZipFile(target) as archive:
+                rels = archive.read("word/_rels/document.xml.rels").decode("utf-8")
+                self.assertNotIn("https://", rels)
+                self.assertNotIn("mailto:", rels)
 
     def test_missing_word_fails_instead_of_faking_pdf(self):
         with mock.patch.object(renderer.subprocess, "run", side_effect=FileNotFoundError):

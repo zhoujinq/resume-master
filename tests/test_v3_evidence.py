@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml
 
-from v3_helpers import mutated, valid_data
+from v3_helpers import minimal_data, mutated, valid_data
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("resume_evidence", ROOT / "scripts" / "evidence.py")
@@ -68,6 +68,25 @@ class V3EvidenceTest(unittest.TestCase):
         self.assertBlocked(data, "F999")
         data = mutated(lambda d: d["jd"]["requirements"][0].update(evidence=[], gap=False))
         self.assertBlocked(data, "gap")
+
+    def test_optional_homepage_github_projects_and_photo_are_not_required(self):
+        data = minimal_data()
+        self.assertNotIn("links", data["meta"])
+        self.assertNotIn("photo", data["meta"])
+        self.assertFalse(any(section["title"] == "项目经历" for section in data["sections"]))
+        self.assertEqual([], evidence.validate_resume(data))
+        data["jd"]["requirements"].append({"requirement": "JD 明确要求的可核验作品集", "evidence": [], "gap": True})
+        self.assertEqual([], evidence.validate_resume(data))
+
+    def test_empty_section_or_invalid_configured_link_is_not_treated_as_absent(self):
+        data = minimal_data()
+        data["sections"].append({"title": "项目经历", "items": []})
+        self.assertBlocked(data, "空章节")
+        data = minimal_data()
+        data["meta"]["links"] = [{"label": "GitHub"}]
+        self.assertBlocked(data, "url")
+        data["meta"]["links"] = [{"label": "作品", "u": "https://example.com/work"}]
+        self.assertEqual([], evidence.validate_resume(data))
 
     def test_fork_preserves_fact_status_ownership_and_source_hash(self):
         with tempfile.TemporaryDirectory() as tmp:

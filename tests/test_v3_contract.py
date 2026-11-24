@@ -37,16 +37,31 @@ class V3SingleRouteContractTest(unittest.TestCase):
             self.assertIn("思源宋体", text, relative)
             self.assertIn("思源黑体", text, relative)
             self.assertIn("#2F5BEA", text, relative)
-            self.assertIn("v3.0.0", text, relative)
-        self.assertNotIn("三种气质", read("docs/index.html"))
+            self.assertIn("v3.1.0", text, relative)
+        html = read("docs/index.html")
+        self.assertNotIn("三种气质", html)
+        self.assertNotIn("只有一个版本", html)
+        self.assertNotIn("没有风格选择题", html)
+        self.assertIn("个人主页、GitHub", html)
+        self.assertIn("不是必配项", html)
         self.assertNotIn("三种版式", read("README.md"))
 
     def test_postmortem_turns_every_cluster_into_a_gate(self):
         text = read("docs/postmortem-2026-11-20-to-24.md")
-        for index in range(1, 15):
+        for index in range(1, 16):
             self.assertIn(f"P{index:02d}", text)
         for gate in ("D02", "E01", "E02", "E03", "A01", "A04", "Q01", "Q03", "Q04", "H01"):
             self.assertIn(gate, text)
+
+    def test_v31_first_principles_cross_domain_and_opposition_are_versioned(self):
+        design = read("docs/design-rationale-v3.1.0.md")
+        for phrase in ("第一性原理", "跨领域", "最强反对者", "个人主页", "GitHub", "Vibe Coding", "双夹具", "配置后丢失"):
+            self.assertIn(phrase, design)
+        matrix = read("docs/requirements-matrix-v3.1.0.md")
+        for requirement in ("R12", "R13", "R17", "R19", "R20", "R23"):
+            self.assertIn(requirement, matrix)
+        self.assertFalse((ROOT / "docs/design-rationale-v3.0.0.md").exists())
+        self.assertFalse((ROOT / "docs/requirements-matrix-v3.0.0.md").exists())
 
     def test_website_links_and_sample_metrics_match_current_artifacts(self):
         html = read("docs/index.html")

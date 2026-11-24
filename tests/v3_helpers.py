@@ -84,6 +84,18 @@ def valid_data():
     }
 
 
+def minimal_data():
+    """无个人主页、GitHub、任何项目、照片或可点击链接的完整候选人。"""
+    data = valid_data()
+    data["meta"].pop("links", None)
+    data["meta"].pop("photo", None)
+    data["meta"]["contact"] = ["深圳", "example@example.com"]
+    data["facts"] = data["facts"][:2]
+    data["jd"]["requirements"] = data["jd"]["requirements"][:2]
+    data["sections"] = data["sections"][:1]
+    return data
+
+
 def mutated(mutator):
     data = valid_data()
     mutator(data)

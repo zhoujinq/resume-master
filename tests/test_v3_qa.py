@@ -50,6 +50,8 @@ class V3QATest(unittest.TestCase):
         self.assertEqual("PASS", qa.file_size_status(2_000_000))
         self.assertEqual("WARN", qa.file_size_status(2_000_001))
         self.assertEqual("NOT_RUN", qa.image_quality_status({})["status"])
+        self.assertEqual("NOT_APPLICABLE", qa.photo_advisory_status(False, {(80, 80)})["status"])
+        self.assertEqual("NOT_RUN", qa.photo_advisory_status(True, set())["status"])
         self.assertEqual("WARN", qa.image_quality_status({(173, 242)})["status"])
         self.assertEqual("PASS", qa.image_quality_status({(600, 840)})["status"])
 
@@ -98,6 +100,7 @@ class V3QATest(unittest.TestCase):
         self.assertNotIn("private", text)
         self.assertIn("核心与严格项无 FAIL", text)
         self.assertNotIn("真实 V53.1", text)
+        self.assertNotIn("极简候选人", text)
 
     def test_pixel_comparison_detects_even_small_change(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -125,6 +128,9 @@ class V3QATest(unittest.TestCase):
             self.assertEqual("林示例", qa.docx_text(path))
         expected = {"mailto:example@example.com", "https://example.com/work"}
         self.assertEqual("PASS", qa.link_check(expected, expected, "URL")["status"])
+        self.assertEqual("NOT_APPLICABLE", qa.link_check(set(), set(), "URL")["status"])
+        self.assertEqual("FAIL", qa.link_check(set(), {"https://example.com/unexpected"}, "URL")["status"])
+        self.assertEqual("FAIL", qa.link_check(expected, set(), "URL")["status"])
 
     def test_strict_not_run_never_becomes_overall_pass(self):
         checks = [
